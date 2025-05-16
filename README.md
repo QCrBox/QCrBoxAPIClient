@@ -1,4 +1,4 @@
-# QCrBox-API-Client
+# QCrBox API Client
 A client library for accessing QCrBox
 
 ## Usage

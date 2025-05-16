@@ -7,11 +7,11 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, File, FileJsonType, Unset
 
-T = TypeVar("T", bound="ApiDatasetsCreateDatasetTheFileContentsToUpload")
+T = TypeVar("T", bound="CreateDatasetTheFileContentsToUpload")
 
 
 @_attrs_define
-class ApiDatasetsCreateDatasetTheFileContentsToUpload:
+class CreateDatasetTheFileContentsToUpload:
     """
     Attributes:
         file (Union[Unset, File]):
@@ -58,12 +58,12 @@ class ApiDatasetsCreateDatasetTheFileContentsToUpload:
         else:
             file = File(payload=BytesIO(_file))
 
-        api_datasets_create_dataset_the_file_contents_to_upload = cls(
+        create_dataset_the_file_contents_to_upload = cls(
             file=file,
         )
 
-        api_datasets_create_dataset_the_file_contents_to_upload.additional_properties = d
-        return api_datasets_create_dataset_the_file_contents_to_upload
+        create_dataset_the_file_contents_to_upload.additional_properties = d
+        return create_dataset_the_file_contents_to_upload
 
     @property
     def additional_keys(self) -> list[str]:

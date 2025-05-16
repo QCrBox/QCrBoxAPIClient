@@ -1,7 +1,5 @@
 """Contains all the data models used in inputs/outputs"""
 
-from .api_data_files_create_data_file_the_file_to_upload import ApiDataFilesCreateDataFileTheFileToUpload
-from .api_datasets_create_dataset_the_file_contents_to_upload import ApiDatasetsCreateDatasetTheFileContentsToUpload
 from .application_spec_with_commands import ApplicationSpecWithCommands
 from .applications_response import ApplicationsResponse
 from .calculation_response_model import CalculationResponseModel
@@ -11,6 +9,8 @@ from .command_spec_with_parameters import CommandSpecWithParameters
 from .command_spec_with_parameters_implemented_as import CommandSpecWithParametersImplementedAs
 from .command_spec_with_parameters_parameters import CommandSpecWithParametersParameters
 from .commands_response import CommandsResponse
+from .create_data_file_the_file_to_upload import CreateDataFileTheFileToUpload
+from .create_dataset_the_file_contents_to_upload import CreateDatasetTheFileContentsToUpload
 from .data_file_metadata_response import DataFileMetadataResponse
 from .data_files_response import DataFilesResponse
 from .dataset_response import DatasetResponse
@@ -31,8 +31,6 @@ from .q_cr_box_response_interactive_session_id_response import QCrBoxResponseInt
 from .q_cr_box_response_interactive_sessions_response import QCrBoxResponseInteractiveSessionsResponse
 
 __all__ = (
-    "ApiDataFilesCreateDataFileTheFileToUpload",
-    "ApiDatasetsCreateDatasetTheFileContentsToUpload",
     "ApplicationSpecWithCommands",
     "ApplicationsResponse",
     "CalculationResponseModel",
@@ -42,6 +40,8 @@ __all__ = (
     "CommandSpecWithParametersImplementedAs",
     "CommandSpecWithParametersParameters",
     "CommandsResponse",
+    "CreateDataFileTheFileToUpload",
+    "CreateDatasetTheFileContentsToUpload",
     "DataFileMetadataResponse",
     "DataFilesResponse",
     "DatasetResponse",

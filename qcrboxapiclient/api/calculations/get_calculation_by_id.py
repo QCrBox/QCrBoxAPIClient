@@ -5,37 +5,28 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.api_data_files_create_data_file_the_file_to_upload import ApiDataFilesCreateDataFileTheFileToUpload
-from ...models.q_cr_box_response_data_files_response import QCrBoxResponseDataFilesResponse
+from ...models.q_cr_box_response_calculations_response import QCrBoxResponseCalculationsResponse
 from ...types import Response
 
 
 def _get_kwargs(
-    *,
-    body: ApiDataFilesCreateDataFileTheFileToUpload,
+    id: str,
 ) -> dict[str, Any]:
-    headers: dict[str, Any] = {}
-
     _kwargs: dict[str, Any] = {
-        "method": "post",
-        "url": "/api/data-files",
+        "method": "get",
+        "url": f"/api/calculations/{id}",
     }
 
-    _body = body.to_multipart()
-
-    _kwargs["files"] = _body
-
-    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[QCrBoxResponseDataFilesResponse]:
-    if response.status_code == 201:
-        response_201 = QCrBoxResponseDataFilesResponse.from_dict(response.text)
+) -> Optional[QCrBoxResponseCalculationsResponse]:
+    if response.status_code == 200:
+        response_200 = QCrBoxResponseCalculationsResponse.from_dict(response.json())
 
-        return response_201
+        return response_200
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -44,7 +35,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[QCrBoxResponseDataFilesResponse]:
+) -> Response[QCrBoxResponseCalculationsResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -54,27 +45,27 @@ def _build_response(
 
 
 def sync_detailed(
+    id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    body: ApiDataFilesCreateDataFileTheFileToUpload,
-) -> Response[QCrBoxResponseDataFilesResponse]:
-    """Upload a data file
+) -> Response[QCrBoxResponseCalculationsResponse]:
+    """Get calculation by ID
 
-     Upload a new data file to the data store.
+     Retrieve a calculation by its ID.
 
     Args:
-        body (ApiDataFilesCreateDataFileTheFileToUpload):
+        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[QCrBoxResponseDataFilesResponse]
+        Response[QCrBoxResponseCalculationsResponse]
     """
 
     kwargs = _get_kwargs(
-        body=body,
+        id=id,
     )
 
     response = client.get_httpx_client().request(
@@ -85,53 +76,53 @@ def sync_detailed(
 
 
 def sync(
+    id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    body: ApiDataFilesCreateDataFileTheFileToUpload,
-) -> Optional[QCrBoxResponseDataFilesResponse]:
-    """Upload a data file
+) -> Optional[QCrBoxResponseCalculationsResponse]:
+    """Get calculation by ID
 
-     Upload a new data file to the data store.
+     Retrieve a calculation by its ID.
 
     Args:
-        body (ApiDataFilesCreateDataFileTheFileToUpload):
+        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        QCrBoxResponseDataFilesResponse
+        QCrBoxResponseCalculationsResponse
     """
 
     return sync_detailed(
+        id=id,
         client=client,
-        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
+    id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    body: ApiDataFilesCreateDataFileTheFileToUpload,
-) -> Response[QCrBoxResponseDataFilesResponse]:
-    """Upload a data file
+) -> Response[QCrBoxResponseCalculationsResponse]:
+    """Get calculation by ID
 
-     Upload a new data file to the data store.
+     Retrieve a calculation by its ID.
 
     Args:
-        body (ApiDataFilesCreateDataFileTheFileToUpload):
+        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[QCrBoxResponseDataFilesResponse]
+        Response[QCrBoxResponseCalculationsResponse]
     """
 
     kwargs = _get_kwargs(
-        body=body,
+        id=id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -140,28 +131,28 @@ async def asyncio_detailed(
 
 
 async def asyncio(
+    id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    body: ApiDataFilesCreateDataFileTheFileToUpload,
-) -> Optional[QCrBoxResponseDataFilesResponse]:
-    """Upload a data file
+) -> Optional[QCrBoxResponseCalculationsResponse]:
+    """Get calculation by ID
 
-     Upload a new data file to the data store.
+     Retrieve a calculation by its ID.
 
     Args:
-        body (ApiDataFilesCreateDataFileTheFileToUpload):
+        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        QCrBoxResponseDataFilesResponse
+        QCrBoxResponseCalculationsResponse
     """
 
     return (
         await asyncio_detailed(
+            id=id,
             client=client,
-            body=body,
         )
     ).parsed
