@@ -1,10 +1,11 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any, Optional, Union, cast
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.q_cr_box_error_response import QCrBoxErrorResponse
 from ...types import Response
 
 
@@ -19,16 +20,33 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Any]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, QCrBoxErrorResponse]]:
     if response.status_code == 204:
-        return None
+        response_204 = cast(Any, None)
+        return response_204
+    if response.status_code == 400:
+        response_400 = QCrBoxErrorResponse.from_dict(response.json())
+
+        return response_400
+    if response.status_code == 404:
+        response_404 = QCrBoxErrorResponse.from_dict(response.json())
+
+        return response_404
+    if response.status_code == 500:
+        response_500 = QCrBoxErrorResponse.from_dict(response.json())
+
+        return response_500
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Any]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, QCrBoxErrorResponse]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -41,7 +59,7 @@ def sync_detailed(
     id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Response[Any]:
+) -> Response[Union[Any, QCrBoxErrorResponse]]:
     """Delete a dataset
 
      Remove a dataset and associated data files from the data store.
@@ -54,7 +72,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any]
+        Response[Union[Any, QCrBoxErrorResponse]]
     """
 
     kwargs = _get_kwargs(
@@ -68,11 +86,11 @@ def sync_detailed(
     return _build_response(client=client, response=response)
 
 
-async def asyncio_detailed(
+def sync(
     id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Response[Any]:
+) -> Optional[Union[Any, QCrBoxErrorResponse]]:
     """Delete a dataset
 
      Remove a dataset and associated data files from the data store.
@@ -85,7 +103,33 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any]
+        Union[Any, QCrBoxErrorResponse]
+    """
+
+    return sync_detailed(
+        id=id,
+        client=client,
+    ).parsed
+
+
+async def asyncio_detailed(
+    id: str,
+    *,
+    client: Union[AuthenticatedClient, Client],
+) -> Response[Union[Any, QCrBoxErrorResponse]]:
+    """Delete a dataset
+
+     Remove a dataset and associated data files from the data store.
+
+    Args:
+        id (str):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[Union[Any, QCrBoxErrorResponse]]
     """
 
     kwargs = _get_kwargs(
@@ -95,3 +139,31 @@ async def asyncio_detailed(
     response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
+
+async def asyncio(
+    id: str,
+    *,
+    client: Union[AuthenticatedClient, Client],
+) -> Optional[Union[Any, QCrBoxErrorResponse]]:
+    """Delete a dataset
+
+     Remove a dataset and associated data files from the data store.
+
+    Args:
+        id (str):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Union[Any, QCrBoxErrorResponse]
+    """
+
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+        )
+    ).parsed

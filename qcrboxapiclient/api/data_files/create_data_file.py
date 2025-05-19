@@ -6,6 +6,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.create_data_file_the_file_to_upload import CreateDataFileTheFileToUpload
+from ...models.q_cr_box_error_response import QCrBoxErrorResponse
 from ...models.q_cr_box_response_data_files_response import QCrBoxResponseDataFilesResponse
 from ...types import Response
 
@@ -31,11 +32,19 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[QCrBoxResponseDataFilesResponse]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDataFilesResponse]]:
     if response.status_code == 201:
         response_201 = QCrBoxResponseDataFilesResponse.from_dict(response.text)
 
         return response_201
+    if response.status_code == 400:
+        response_400 = QCrBoxErrorResponse.from_dict(response.json())
+
+        return response_400
+    if response.status_code == 500:
+        response_500 = QCrBoxErrorResponse.from_dict(response.json())
+
+        return response_500
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -44,7 +53,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[QCrBoxResponseDataFilesResponse]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDataFilesResponse]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -57,7 +66,7 @@ def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
     body: CreateDataFileTheFileToUpload,
-) -> Response[QCrBoxResponseDataFilesResponse]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDataFilesResponse]]:
     """Upload a data file
 
      Upload a new data file to the data store.
@@ -70,7 +79,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[QCrBoxResponseDataFilesResponse]
+        Response[Union[QCrBoxErrorResponse, QCrBoxResponseDataFilesResponse]]
     """
 
     kwargs = _get_kwargs(
@@ -88,7 +97,7 @@ def sync(
     *,
     client: Union[AuthenticatedClient, Client],
     body: CreateDataFileTheFileToUpload,
-) -> Optional[QCrBoxResponseDataFilesResponse]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDataFilesResponse]]:
     """Upload a data file
 
      Upload a new data file to the data store.
@@ -101,7 +110,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        QCrBoxResponseDataFilesResponse
+        Union[QCrBoxErrorResponse, QCrBoxResponseDataFilesResponse]
     """
 
     return sync_detailed(
@@ -114,7 +123,7 @@ async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
     body: CreateDataFileTheFileToUpload,
-) -> Response[QCrBoxResponseDataFilesResponse]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDataFilesResponse]]:
     """Upload a data file
 
      Upload a new data file to the data store.
@@ -127,7 +136,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[QCrBoxResponseDataFilesResponse]
+        Response[Union[QCrBoxErrorResponse, QCrBoxResponseDataFilesResponse]]
     """
 
     kwargs = _get_kwargs(
@@ -143,7 +152,7 @@ async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
     body: CreateDataFileTheFileToUpload,
-) -> Optional[QCrBoxResponseDataFilesResponse]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDataFilesResponse]]:
     """Upload a data file
 
      Upload a new data file to the data store.
@@ -156,7 +165,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        QCrBoxResponseDataFilesResponse
+        Union[QCrBoxErrorResponse, QCrBoxResponseDataFilesResponse]
     """
 
     return (

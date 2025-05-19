@@ -5,6 +5,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.q_cr_box_error_response import QCrBoxErrorResponse
 from ...types import Response
 
 
@@ -19,17 +20,33 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[str]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[QCrBoxErrorResponse, str]]:
     if response.status_code == 200:
         response_200 = cast(str, response.content)
         return response_200
+    if response.status_code == 400:
+        response_400 = QCrBoxErrorResponse.from_dict(response.json())
+
+        return response_400
+    if response.status_code == 404:
+        response_404 = QCrBoxErrorResponse.from_dict(response.json())
+
+        return response_404
+    if response.status_code == 500:
+        response_500 = QCrBoxErrorResponse.from_dict(response.json())
+
+        return response_500
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[str]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[QCrBoxErrorResponse, str]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -42,7 +59,7 @@ def sync_detailed(
     id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Response[str]:
+) -> Response[Union[QCrBoxErrorResponse, str]]:
     """Download a dataset
 
      Download the data files of a datast as a Zip file.
@@ -55,7 +72,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[str]
+        Response[Union[QCrBoxErrorResponse, str]]
     """
 
     kwargs = _get_kwargs(
@@ -73,7 +90,7 @@ def sync(
     id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Optional[str]:
+) -> Optional[Union[QCrBoxErrorResponse, str]]:
     """Download a dataset
 
      Download the data files of a datast as a Zip file.
@@ -86,7 +103,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        str
+        Union[QCrBoxErrorResponse, str]
     """
 
     return sync_detailed(
@@ -99,7 +116,7 @@ async def asyncio_detailed(
     id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Response[str]:
+) -> Response[Union[QCrBoxErrorResponse, str]]:
     """Download a dataset
 
      Download the data files of a datast as a Zip file.
@@ -112,7 +129,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[str]
+        Response[Union[QCrBoxErrorResponse, str]]
     """
 
     kwargs = _get_kwargs(
@@ -128,7 +145,7 @@ async def asyncio(
     id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Optional[str]:
+) -> Optional[Union[QCrBoxErrorResponse, str]]:
     """Download a dataset
 
      Download the data files of a datast as a Zip file.
@@ -141,7 +158,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        str
+        Union[QCrBoxErrorResponse, str]
     """
 
     return (

@@ -5,6 +5,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.q_cr_box_error_response import QCrBoxErrorResponse
 from ...models.q_cr_box_response_calculations_response import QCrBoxResponseCalculationsResponse
 from ...types import Response
 
@@ -20,11 +21,19 @@ def _get_kwargs() -> dict[str, Any]:
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[QCrBoxResponseCalculationsResponse]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseCalculationsResponse]]:
     if response.status_code == 200:
         response_200 = QCrBoxResponseCalculationsResponse.from_dict(response.json())
 
         return response_200
+    if response.status_code == 400:
+        response_400 = QCrBoxErrorResponse.from_dict(response.json())
+
+        return response_400
+    if response.status_code == 500:
+        response_500 = QCrBoxErrorResponse.from_dict(response.json())
+
+        return response_500
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -33,7 +42,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[QCrBoxResponseCalculationsResponse]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseCalculationsResponse]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -45,7 +54,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Response[QCrBoxResponseCalculationsResponse]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseCalculationsResponse]]:
     """List all calculations
 
      Retrieve a list of all calculations, past and present.
@@ -55,7 +64,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[QCrBoxResponseCalculationsResponse]
+        Response[Union[QCrBoxErrorResponse, QCrBoxResponseCalculationsResponse]]
     """
 
     kwargs = _get_kwargs()
@@ -70,7 +79,7 @@ def sync_detailed(
 def sync(
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Optional[QCrBoxResponseCalculationsResponse]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseCalculationsResponse]]:
     """List all calculations
 
      Retrieve a list of all calculations, past and present.
@@ -80,7 +89,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        QCrBoxResponseCalculationsResponse
+        Union[QCrBoxErrorResponse, QCrBoxResponseCalculationsResponse]
     """
 
     return sync_detailed(
@@ -91,7 +100,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Response[QCrBoxResponseCalculationsResponse]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseCalculationsResponse]]:
     """List all calculations
 
      Retrieve a list of all calculations, past and present.
@@ -101,7 +110,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[QCrBoxResponseCalculationsResponse]
+        Response[Union[QCrBoxErrorResponse, QCrBoxResponseCalculationsResponse]]
     """
 
     kwargs = _get_kwargs()
@@ -114,7 +123,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Optional[QCrBoxResponseCalculationsResponse]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseCalculationsResponse]]:
     """List all calculations
 
      Retrieve a list of all calculations, past and present.
@@ -124,7 +133,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        QCrBoxResponseCalculationsResponse
+        Union[QCrBoxErrorResponse, QCrBoxResponseCalculationsResponse]
     """
 
     return (

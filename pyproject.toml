@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "QCrBox API Client"
+name = "QCrBoxAPIClient"
 version = "0.1"
 description = "A client library for accessing QCrBox"
 authors = []

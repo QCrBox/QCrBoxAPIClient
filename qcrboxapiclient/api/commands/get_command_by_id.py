@@ -5,6 +5,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.q_cr_box_error_response import QCrBoxErrorResponse
 from ...models.q_cr_box_response_commands_response import QCrBoxResponseCommandsResponse
 from ...types import Response
 
@@ -22,11 +23,23 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[QCrBoxResponseCommandsResponse]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseCommandsResponse]]:
     if response.status_code == 200:
         response_200 = QCrBoxResponseCommandsResponse.from_dict(response.json())
 
         return response_200
+    if response.status_code == 400:
+        response_400 = QCrBoxErrorResponse.from_dict(response.json())
+
+        return response_400
+    if response.status_code == 404:
+        response_404 = QCrBoxErrorResponse.from_dict(response.json())
+
+        return response_404
+    if response.status_code == 500:
+        response_500 = QCrBoxErrorResponse.from_dict(response.json())
+
+        return response_500
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -35,7 +48,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[QCrBoxResponseCommandsResponse]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseCommandsResponse]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -48,7 +61,7 @@ def sync_detailed(
     id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Response[QCrBoxResponseCommandsResponse]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseCommandsResponse]]:
     """Get command by ID
 
      Retrieve a command of the given ID.
@@ -61,7 +74,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[QCrBoxResponseCommandsResponse]
+        Response[Union[QCrBoxErrorResponse, QCrBoxResponseCommandsResponse]]
     """
 
     kwargs = _get_kwargs(
@@ -79,7 +92,7 @@ def sync(
     id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Optional[QCrBoxResponseCommandsResponse]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseCommandsResponse]]:
     """Get command by ID
 
      Retrieve a command of the given ID.
@@ -92,7 +105,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        QCrBoxResponseCommandsResponse
+        Union[QCrBoxErrorResponse, QCrBoxResponseCommandsResponse]
     """
 
     return sync_detailed(
@@ -105,7 +118,7 @@ async def asyncio_detailed(
     id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Response[QCrBoxResponseCommandsResponse]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseCommandsResponse]]:
     """Get command by ID
 
      Retrieve a command of the given ID.
@@ -118,7 +131,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[QCrBoxResponseCommandsResponse]
+        Response[Union[QCrBoxErrorResponse, QCrBoxResponseCommandsResponse]]
     """
 
     kwargs = _get_kwargs(
@@ -134,7 +147,7 @@ async def asyncio(
     id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Optional[QCrBoxResponseCommandsResponse]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseCommandsResponse]]:
     """Get command by ID
 
      Retrieve a command of the given ID.
@@ -147,7 +160,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        QCrBoxResponseCommandsResponse
+        Union[QCrBoxErrorResponse, QCrBoxResponseCommandsResponse]
     """
 
     return (

@@ -16,12 +16,14 @@ from .data_files_response import DataFilesResponse
 from .dataset_response import DatasetResponse
 from .dataset_response_data_files import DatasetResponseDataFiles
 from .datasets_response import DatasetsResponse
+from .error_response import ErrorResponse
 from .interactive_session_create import InteractiveSessionCreate
 from .interactive_session_create_arguments import InteractiveSessionCreateArguments
 from .interactive_session_id_response import InteractiveSessionIDResponse
 from .interactive_session_info_response import InteractiveSessionInfoResponse
 from .interactive_session_info_response_arguments import InteractiveSessionInfoResponseArguments
 from .interactive_sessions_response import InteractiveSessionsResponse
+from .q_cr_box_error_response import QCrBoxErrorResponse
 from .q_cr_box_response_applications_response import QCrBoxResponseApplicationsResponse
 from .q_cr_box_response_calculations_response import QCrBoxResponseCalculationsResponse
 from .q_cr_box_response_commands_response import QCrBoxResponseCommandsResponse
@@ -47,12 +49,14 @@ __all__ = (
     "DatasetResponse",
     "DatasetResponseDataFiles",
     "DatasetsResponse",
+    "ErrorResponse",
     "InteractiveSessionCreate",
     "InteractiveSessionCreateArguments",
     "InteractiveSessionIDResponse",
     "InteractiveSessionInfoResponse",
     "InteractiveSessionInfoResponseArguments",
     "InteractiveSessionsResponse",
+    "QCrBoxErrorResponse",
     "QCrBoxResponseApplicationsResponse",
     "QCrBoxResponseCalculationsResponse",
     "QCrBoxResponseCommandsResponse",
