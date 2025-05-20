@@ -21,8 +21,3 @@ dmypy.json
 
 /coverage.xml
 /.coverage
-
-# Robot
-log.html
-output.xml
-report.html
