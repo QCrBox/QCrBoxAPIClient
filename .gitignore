@@ -32,3 +32,6 @@ dmypy.json
 log.html
 output.xml
 report.html
+
+# Sphinx
+docs/_build
