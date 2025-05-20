@@ -16,3 +16,15 @@ def create_data_file(
     from qcrboxapiclient.api.data_files import create_data_file
 
     return create_data_file.sync(body=body, client=client)
+
+
+def get_data_file_by_id(client: Client, id: str) -> QCrBoxResponseDataFilesResponse | QCrBoxErrorResponse:
+    from qcrboxapiclient.api.data_files import get_data_file_by_id
+
+    return get_data_file_by_id.sync(id=id, client=client)
+
+
+def download_data_file_by_id(client: Client, id: str) -> bytes | str | QCrBoxErrorResponse:
+    from qcrboxapiclient.api.data_files import download_data_file_by_id
+
+    return download_data_file_by_id.sync(id=id, client=client)

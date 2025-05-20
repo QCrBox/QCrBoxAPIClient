@@ -22,8 +22,6 @@ ${TEST_DATASET_ID}              ${EMPTY}
 
 
 *** Test Cases ***
-# Datasets
-
 Check create_datasets can upload a data file
     ${body}=    Create File Upload Body    ${TEST_FILE_PATH}
     ${response}=    Create Dataset    ${API_CLIENT}    ${body}
