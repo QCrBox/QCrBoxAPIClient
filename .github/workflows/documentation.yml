@@ -14,9 +14,20 @@ jobs:
       pages: write
       id-token: write
     steps:
-    - id: deployment
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Run API auto-doc script
+      run: python scripts/generate-api-reference.py
+
+    - name: Build Sphinx site and deploy to GH Pages
+      id: deployment
       uses: sphinx-notes/pages@v3
       with:
         documentation_path: docs/source
         requirements_path: docs/requirements.txt
-
