@@ -21,3 +21,14 @@ dmypy.json
 
 /coverage.xml
 /.coverage
+
+# VS Code
+.vscode
+
+# Ruff
+.ruff_cache
+
+# Robot framework
+log.html
+output.xml
+report.html
