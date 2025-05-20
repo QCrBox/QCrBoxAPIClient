@@ -10,7 +10,7 @@ from .command_spec_with_parameters_implemented_as import CommandSpecWithParamete
 from .command_spec_with_parameters_parameters import CommandSpecWithParametersParameters
 from .commands_response import CommandsResponse
 from .create_data_file_the_file_to_upload import CreateDataFileTheFileToUpload
-from .create_dataset_the_file_contents_to_upload import CreateDatasetTheFileContentsToUpload
+from .create_dataset_body import CreateDatasetBody
 from .data_file_metadata_response import DataFileMetadataResponse
 from .data_files_response import DataFilesResponse
 from .dataset_response import DatasetResponse
@@ -43,7 +43,7 @@ __all__ = (
     "CommandSpecWithParametersParameters",
     "CommandsResponse",
     "CreateDataFileTheFileToUpload",
-    "CreateDatasetTheFileContentsToUpload",
+    "CreateDatasetBody",
     "DataFileMetadataResponse",
     "DataFilesResponse",
     "DatasetResponse",

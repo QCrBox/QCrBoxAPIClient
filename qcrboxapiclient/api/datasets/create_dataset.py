@@ -5,7 +5,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.create_dataset_the_file_contents_to_upload import CreateDatasetTheFileContentsToUpload
+from ...models.create_dataset_body import CreateDatasetBody
 from ...models.q_cr_box_error_response import QCrBoxErrorResponse
 from ...models.q_cr_box_response_datasets_response import QCrBoxResponseDatasetsResponse
 from ...types import Response
@@ -13,7 +13,7 @@ from ...types import Response
 
 def _get_kwargs(
     *,
-    body: CreateDatasetTheFileContentsToUpload,
+    body: CreateDatasetBody,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -34,7 +34,7 @@ def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
 ) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
     if response.status_code == 201:
-        response_201 = QCrBoxResponseDatasetsResponse.from_dict(response.text)
+        response_201 = QCrBoxResponseDatasetsResponse.from_dict(response.json())
 
         return response_201
     if response.status_code == 400:
@@ -65,14 +65,14 @@ def _build_response(
 def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: CreateDatasetTheFileContentsToUpload,
+    body: CreateDatasetBody,
 ) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
     """Create a new dataset
 
      Create a new dataset by uploading data files.
 
     Args:
-        body (CreateDatasetTheFileContentsToUpload):
+        body (CreateDatasetBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -96,14 +96,14 @@ def sync_detailed(
 def sync(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: CreateDatasetTheFileContentsToUpload,
+    body: CreateDatasetBody,
 ) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
     """Create a new dataset
 
      Create a new dataset by uploading data files.
 
     Args:
-        body (CreateDatasetTheFileContentsToUpload):
+        body (CreateDatasetBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -122,14 +122,14 @@ def sync(
 async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: CreateDatasetTheFileContentsToUpload,
+    body: CreateDatasetBody,
 ) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
     """Create a new dataset
 
      Create a new dataset by uploading data files.
 
     Args:
-        body (CreateDatasetTheFileContentsToUpload):
+        body (CreateDatasetBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -151,14 +151,14 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: CreateDatasetTheFileContentsToUpload,
+    body: CreateDatasetBody,
 ) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
     """Create a new dataset
 
      Create a new dataset by uploading data files.
 
     Args:
-        body (CreateDatasetTheFileContentsToUpload):
+        body (CreateDatasetBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
