@@ -27,17 +27,21 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r docs/requirements.txt
-
+        
+    - name: Prepare repository
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git fetch origin main
+        git checkout main
+        git pull --ff-only origin main
+        
     - name: Run API auto-doc script
       run: python scripts/generate-api-reference.py
 
     - name: Commit generated docs
       run: |
-        git config user.name "github-actions"
-        git config user.email "github-actions@github.com"
-        git fetch origin main
-        git rebase origin/main
-        git add docs/source/api
+        git add docs/source
         git diff --cached --quiet || git commit -m "Auto-generate API docs"
         git push origin main
 
