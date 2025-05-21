@@ -11,14 +11,14 @@ from .command_spec_with_parameters_parameters import CommandSpecWithParametersPa
 from .commands_response import CommandsResponse
 from .create_data_file_the_file_to_upload import CreateDataFileTheFileToUpload
 from .create_dataset_body import CreateDatasetBody
+from .create_interactive_session import CreateInteractiveSession
+from .create_interactive_session_arguments import CreateInteractiveSessionArguments
 from .data_file_metadata_response import DataFileMetadataResponse
 from .data_files_response import DataFilesResponse
 from .dataset_response import DatasetResponse
 from .dataset_response_data_files import DatasetResponseDataFiles
 from .datasets_response import DatasetsResponse
 from .error_response import ErrorResponse
-from .interactive_session_create import InteractiveSessionCreate
-from .interactive_session_create_arguments import InteractiveSessionCreateArguments
 from .interactive_session_id_response import InteractiveSessionIDResponse
 from .interactive_session_info_response import InteractiveSessionInfoResponse
 from .interactive_session_info_response_arguments import InteractiveSessionInfoResponseArguments
@@ -44,14 +44,14 @@ __all__ = (
     "CommandsResponse",
     "CreateDataFileTheFileToUpload",
     "CreateDatasetBody",
+    "CreateInteractiveSession",
+    "CreateInteractiveSessionArguments",
     "DataFileMetadataResponse",
     "DataFilesResponse",
     "DatasetResponse",
     "DatasetResponseDataFiles",
     "DatasetsResponse",
     "ErrorResponse",
-    "InteractiveSessionCreate",
-    "InteractiveSessionCreateArguments",
     "InteractiveSessionIDResponse",
     "InteractiveSessionInfoResponse",
     "InteractiveSessionInfoResponseArguments",

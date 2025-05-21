@@ -5,24 +5,24 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.interactive_session_create_arguments import InteractiveSessionCreateArguments
+    from ..models.create_interactive_session_arguments import CreateInteractiveSessionArguments
 
 
-T = TypeVar("T", bound="InteractiveSessionCreate")
+T = TypeVar("T", bound="CreateInteractiveSession")
 
 
 @_attrs_define
-class InteractiveSessionCreate:
+class CreateInteractiveSession:
     """
     Attributes:
         application_slug (str):
         application_version (str):
-        arguments (InteractiveSessionCreateArguments):
+        arguments (CreateInteractiveSessionArguments):
     """
 
     application_slug: str
     application_version: str
-    arguments: "InteractiveSessionCreateArguments"
+    arguments: "CreateInteractiveSessionArguments"
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -46,23 +46,23 @@ class InteractiveSessionCreate:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.interactive_session_create_arguments import InteractiveSessionCreateArguments
+        from ..models.create_interactive_session_arguments import CreateInteractiveSessionArguments
 
         d = dict(src_dict)
         application_slug = d.pop("application_slug")
 
         application_version = d.pop("application_version")
 
-        arguments = InteractiveSessionCreateArguments.from_dict(d.pop("arguments"))
+        arguments = CreateInteractiveSessionArguments.from_dict(d.pop("arguments"))
 
-        interactive_session_create = cls(
+        create_interactive_session = cls(
             application_slug=application_slug,
             application_version=application_version,
             arguments=arguments,
         )
 
-        interactive_session_create.additional_properties = d
-        return interactive_session_create
+        create_interactive_session.additional_properties = d
+        return create_interactive_session
 
     @property
     def additional_keys(self) -> list[str]:
