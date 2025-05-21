@@ -1,15 +1,22 @@
-.. QCrBoxAPIClint documentation master file, created by
-   sphinx-quickstart on Tue May 20 14:34:07 2025.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+QCrBox API Client documentation
+===============================
 
-QCrBoxAPIClint documentation
-============================
+The QCrBox API Client is a Python SDK for interacting with the QCrBox registry
+API.
 
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2
-   :caption: API Reference
-   :glob:
+
+   quickstart
+
+Reference
+---------
+
+.. toctree::
+   :maxdepth: 2
 
    api/api_reference
+   models/model_reference

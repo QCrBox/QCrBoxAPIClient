@@ -5,12 +5,12 @@
 
 import sys
 
-sys.path.insert(0, "../")
+sys.path.insert(0, "../../")
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "QCrBoxAPIClint"
+project = "QCrBox API Client"
 copyright = "2025, Edward J. Parkinson"
 author = "Edward J. Parkinson"
 release = "0.1"
@@ -24,8 +24,8 @@ extensions = [
     "sphinx_autodoc_typehints",
 ]
 
-templates_path = ["_templates"]
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+templates_path = ["../_templates"]
+exclude_patterns = ["../build", "Thumbs.db", ".DS_Store"]
 
 autodoc_typehints = "description"
 autodoc_default_options = {
@@ -37,5 +37,5 @@ autodoc_default_options = {
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "alabaster"
-html_static_path = ["_static"]
+html_theme = "furo"
+html_static_path = ["../_static"]
