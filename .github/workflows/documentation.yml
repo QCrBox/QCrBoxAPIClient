@@ -39,7 +39,7 @@ jobs:
         git rebase origin/main
         git add docs/source/api
         git diff --cached --quiet || git commit -m "Auto-generate API docs"
-        git push origin HEAD:main:w
+        git push origin main
 
     - name: Deploy Sphinx site to GitHub Pages
       id: deployment
