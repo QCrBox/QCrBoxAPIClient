@@ -20,20 +20,3 @@ Check Response Structure
 Check Response Has Attributes
     [Arguments]    ${payload}    @{attribute}
     Check Object Has Attributes    ${payload}    @{attribute}
-
-Check Applications Structure
-    [Arguments]    @{applications}
-    FOR    ${application}    IN    @{applications}
-        Check Response Has Attributes
-        ...    ${application}
-        ...    name
-        ...    slug
-        ...    version
-        ...    description
-        ...    url
-        ...    registered_at
-        ...    commands
-        FOR    ${command}    IN    @{application.commands}
-            Check Response Has Attributes    ${command}    name    description    implemented_as    parameters
-        END
-    END

@@ -3,6 +3,8 @@ import pathlib
 from robot.api.deco import keyword
 
 from qcrboxapiclient.models.create_dataset_body import CreateDatasetBody
+from qcrboxapiclient.models.create_interactive_session import CreateInteractiveSession
+from qcrboxapiclient.models.create_interactive_session_arguments import CreateInteractiveSessionArguments
 from qcrboxapiclient.types import File
 
 
@@ -30,3 +32,9 @@ def create_file_upload_body(file_path):
         file = File(file_in.read(), file_path.name)
 
     return CreateDatasetBody(file)
+
+
+@keyword
+def create_interactive_session_create_body(application_slug, application_version, arguments):
+    arguments = CreateInteractiveSessionArguments.from_dict(arguments)
+    return CreateInteractiveSession(application_slug, application_version, arguments)

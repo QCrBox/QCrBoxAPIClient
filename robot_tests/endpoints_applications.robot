@@ -39,3 +39,20 @@ Setup suite
 Teardown suite
     Log datetime information
     Log    Test suite completed
+
+Check Applications Structure
+    [Arguments]    @{applications}
+    FOR    ${application}    IN    @{applications}
+        Check Response Has Attributes
+        ...    ${application}
+        ...    name
+        ...    slug
+        ...    version
+        ...    description
+        ...    url
+        ...    registered_at
+        ...    commands
+        FOR    ${command}    IN    @{application.commands}
+            Check Response Has Attributes    ${command}    name    description    implemented_as    parameters
+        END
+    END

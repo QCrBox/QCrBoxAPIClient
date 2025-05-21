@@ -4,13 +4,14 @@ Documentation
 
 # Resources -- implemented in Robot
 Resource            resources/keywords.resource
+# Standard libraries
+Library    Collections
 # API glue code -- implemented in Python
 Library             libraries/endpoints/datasets.py
 
-Suite Setup         Setup suite
-Suite Teardown      Teardown suite
+Suite Setup    Setup Suite
+Suite Teardown    Teardown Suite
 Test Timeout        2 minutes
-
 
 *** Variables ***
 ${API_BASE_URL}                 http://127.0.0.1:11000/
@@ -43,7 +44,8 @@ Check list_datasets returns datasets
     Check Response Has Attributes    ${response.payload}    datasets
     ${n_datasets}=    Get Length    ${response.payload.datasets}
     Should Be True    ${n_datasets} > 0    "No datasets retrieved, even though at least one has been uploaded"
-    # TODO: check structure of datasets
+    ${datasets}=    Set Variable    ${response.payload.datasets}
+    Check Datasets Structure    @{datasets}
 
 Check get_dataset_by_id returns the correct dataset
     ${response}=    Get Dataset By Id    ${API_CLIENT}    ${TEST_DATASET_ID}
@@ -59,7 +61,7 @@ Check get_dataset_by_id returns the correct dataset
     Should Be Equal    ${TEST_DATASET_ID}    ${dataset_id}    "get_datasets_by_id returned the wrong dataset"
 
 Check delete_dataset can delete a dataset
-    Delete Dataset By Id    ${API_CLIENT}    ${TEST_DATASET_ID}
+   Delete Dataset By Id    ${API_CLIENT}    ${TEST_DATASET_ID}
 
 Check get_dataset_by_id returns 404 for deleted dataset
     ${response}=    Get Dataset By Id    ${API_CLIENT}    ${TEST_DATASET_ID}
@@ -71,12 +73,19 @@ Check get_dataset_by_id returns 404 for deleted dataset
 
 
 *** Keywords ***
-Setup suite
+Setup Suite
     Log datetime information
     Log    Starting test suite
     ${client}=    Create API Client    ${API_BASE_URL}
     Set Suite Variable    ${API_CLIENT}    ${client}
 
-Teardown suite
+Teardown Suite
     Log datetime information
     Log    Test suite completed
+
+Check Datasets Structure
+    [Arguments]    @{datasets}
+
+    FOR    ${dataset}    IN    @{datasets}
+        Check Response Has Attributes    ${dataset}    qcrbox_dataset_id    data_files
+    END

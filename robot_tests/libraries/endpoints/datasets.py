@@ -27,6 +27,7 @@ def get_dataset_by_id(client: Client, id: str) -> QCrBoxResponseDatasetsResponse
 
     return get_dataset_by_id.sync(id=id, client=client)
 
+
 def download_dataset_by_id(client: Client, id: str) -> bytes | str | QCrBoxErrorResponse:
     from qcrboxapiclient.api.datasets import download_dataset_by_id
 
