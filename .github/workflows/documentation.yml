@@ -2,7 +2,7 @@ name: Deploy Sphinx documentation to Pages
 
 on:
   push:
-    branches: [main] # branch to trigger deployment
+    branches: [main]
 
 jobs:
   pages:
@@ -11,8 +11,10 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     permissions:
+      contents: write  # needed to push docs to main
       pages: write
       id-token: write
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -22,10 +24,23 @@ jobs:
       with:
         python-version: '3.x'
 
+    - name: Install dependencies
+      run: |
+        pip install -r docs/requirements.txt
+
     - name: Run API auto-doc script
       run: python scripts/generate-api-reference.py
 
-    - name: Build Sphinx site and deploy to GH Pages
+    - name: Commit generated docs
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git add docs/source/api
+        git add docs/source/api_reference.rst
+        git diff --cached --quiet || git commit -m "Auto-generate API docs"
+        git push origin main
+
+    - name: Deploy Sphinx site to GitHub Pages
       id: deployment
       uses: sphinx-notes/pages@v3
       with:
