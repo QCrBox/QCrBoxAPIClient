@@ -20,3 +20,10 @@ Check Response Structure
 Check Response Has Attributes
     [Arguments]    ${payload}    @{attribute}
     Check Object Has Attributes    ${payload}    @{attribute}
+
+Check For Error Response
+    [Arguments]    ${response}
+
+    IF    "${response.status}" == "error"
+        Fail    "Error ${response.error.code} returned from API: ${response.error.message}"
+    END

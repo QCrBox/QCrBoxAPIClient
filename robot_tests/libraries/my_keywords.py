@@ -9,9 +9,15 @@ from qcrboxapiclient.types import File
 
 
 @keyword
+def should_be_none(value, name="Value"):
+    if value is not None:
+        raise AssertionError(f"{name} should not be None")
+
+
+@keyword
 def should_not_be_none(value, name="Value"):
     if value is None:
-        raise AssertionError(f"{name} should not be None.")
+        raise AssertionError(f"{name} should not be None")
 
 
 @keyword
@@ -37,4 +43,5 @@ def create_file_upload_body(file_path):
 @keyword
 def create_interactive_session_create_body(application_slug, application_version, arguments):
     arguments = CreateInteractiveSessionArguments.from_dict(arguments)
+    return CreateInteractiveSession(application_slug, application_version, arguments)
     return CreateInteractiveSession(application_slug, application_version, arguments)
