@@ -61,7 +61,10 @@ Check get_dataset_by_id returns the correct dataset
     Should Be Equal    ${TEST_DATASET_ID}    ${dataset_id}    "get_datasets_by_id returned the wrong dataset"
 
 Check delete_dataset can delete a dataset
-   Delete Dataset By Id    ${API_CLIENT}    ${TEST_DATASET_ID}
+    ${response}=    Delete Dataset By Id    ${API_CLIENT}    ${TEST_DATASET_ID}
+    IF    ${response}
+        Check For Error Response    ${response}
+    END
 
 Check get_dataset_by_id returns 404 for deleted dataset
     ${response}=    Get Dataset By Id    ${API_CLIENT}    ${TEST_DATASET_ID}
