@@ -4,15 +4,21 @@ Documentation
 
 # Resources -- implemented in Robot
 Resource            resources/keywords.resource
+Library    libraries/endpoints/data_files.py
 
 Suite Setup         Setup suite
 Suite Teardown      Teardown suite
 Test Timeout        2 minutes
 
-
 *** Variables ***
 ${API_BASE_URL}     http://127.0.0.1:11000/
 ${API_CLIENT}       ${EMPTY}
+
+
+*** Test Cases ***
+Check list_data_files returns list of data_files
+    ${response}=    List Data Files    ${API_CLIENT}
+
 
 
 *** Keywords ***
