@@ -9,7 +9,7 @@ def list_commands(client: Client) -> QCrBoxResponseCommandsResponse | QCrBoxErro
     return list_commands.sync(client=client)
 
 
-def get_command_by_id(client: Client) -> QCrBoxResponseCommandsResponse | QCrBoxErrorResponse:
+def get_command_by_id(client: Client, id: str) -> QCrBoxResponseCommandsResponse | QCrBoxErrorResponse:
     from qcrboxapiclient.api.commands import get_command_by_id
 
-    return get_command_by_id.sync(client=client)
+    return get_command_by_id.sync(id=id, client=client)

@@ -45,3 +45,8 @@ def create_interactive_session_create_body(application_slug, application_version
     arguments = CreateInteractiveSessionArguments.from_dict(arguments)
     return CreateInteractiveSession(application_slug, application_version, arguments)
     return CreateInteractiveSession(application_slug, application_version, arguments)
+
+
+@keyword
+def get_command_parameter_names(parameters):
+    return parameters.to_dict().keys()
