@@ -9,7 +9,6 @@ from .command_spec_with_parameters import CommandSpecWithParameters
 from .command_spec_with_parameters_implemented_as import CommandSpecWithParametersImplementedAs
 from .command_spec_with_parameters_parameters import CommandSpecWithParametersParameters
 from .commands_response import CommandsResponse
-from .create_data_file_the_file_to_upload import CreateDataFileTheFileToUpload
 from .create_dataset_body import CreateDatasetBody
 from .create_interactive_session import CreateInteractiveSession
 from .create_interactive_session_arguments import CreateInteractiveSessionArguments
@@ -43,7 +42,6 @@ __all__ = (
     "CommandSpecWithParametersImplementedAs",
     "CommandSpecWithParametersParameters",
     "CommandsResponse",
-    "CreateDataFileTheFileToUpload",
     "CreateDatasetBody",
     "CreateInteractiveSession",
     "CreateInteractiveSessionArguments",
