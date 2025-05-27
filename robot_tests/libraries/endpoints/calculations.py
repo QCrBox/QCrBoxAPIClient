@@ -9,7 +9,7 @@ def list_calculations(client: Client) -> QCrBoxResponseCalculationsResponse | QC
     return list_calculations.sync(client=client)
 
 
-def get_calculation_by_id(client: Client) -> QCrBoxResponseCalculationsResponse | QCrBoxErrorResponse:
+def get_calculation_by_id(client: Client, id: str) -> QCrBoxResponseCalculationsResponse | QCrBoxErrorResponse:
     from qcrboxapiclient.api.calculations import get_calculation_by_id
 
-    return get_calculation_by_id.sync(client=client)
+    return get_calculation_by_id.sync(id=id, client=client)
