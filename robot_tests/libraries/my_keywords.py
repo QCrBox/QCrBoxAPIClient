@@ -1,3 +1,4 @@
+import io
 import pathlib
 
 from robot.api.deco import keyword
@@ -35,7 +36,7 @@ def create_file_upload_body(file_path):
         raise AssertionError(f"No file exists at {file_path}")
 
     with file_path.open("rb") as file_in:
-        file = File(file_in.read(), file_path.name)
+        file = File(io.BytesIO(file_in.read()), file_path.name)
 
     return CreateDatasetBody(file)
 
@@ -43,7 +44,6 @@ def create_file_upload_body(file_path):
 @keyword
 def create_interactive_session_create_body(application_slug, application_version, arguments):
     arguments = CreateInteractiveSessionArguments.from_dict(arguments)
-    return CreateInteractiveSession(application_slug, application_version, arguments)
     return CreateInteractiveSession(application_slug, application_version, arguments)
 
 
