@@ -1,4 +1,5 @@
 import os
+import shutil
 
 
 def generate_rst_files(module_base: str, source_dir: str, output_dir: str, index_content: list, no_index=False):
@@ -23,6 +24,7 @@ def generate_rst_files(module_base: str, source_dir: str, output_dir: str, index
 
 # API Reference index
 output_dir = "docs/source/api"
+shutil.rmtree(output_dir)
 os.makedirs(output_dir, exist_ok=True)
 api_index = ["API Reference", "=============", "", ".. toctree::", "   :maxdepth: 2", ""]
 generate_rst_files("qcrboxapiclient.api", "qcrboxapiclient/api", output_dir, api_index)
@@ -31,6 +33,7 @@ with open(os.path.join(output_dir, "api_reference.rst"), "w") as f:
 
 # Model Reference index
 output_dir = "docs/source/models"
+shutil.rmtree(output_dir)
 os.makedirs(output_dir, exist_ok=True)
 model_index = ["Model Reference", "===============", "", ".. toctree::", "   :maxdepth: 2", ""]
 generate_rst_files("qcrboxapiclient.models", "qcrboxapiclient/models", output_dir, model_index, no_index=True)
