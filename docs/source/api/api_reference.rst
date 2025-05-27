@@ -12,7 +12,6 @@ API Reference
    data_files/get_data_file_by_id
    data_files/list_data_files
    data_files/download_data_file_by_id
-   data_files/create_data_file
    applications/list_applications
    calculations/list_calculations
    calculations/get_calculation_by_id

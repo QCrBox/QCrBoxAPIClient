@@ -24,7 +24,6 @@ Model Reference
    dataset_response_data_files
    q_cr_box_health_response
    datasets_response
-   create_data_file_the_file_to_upload
    interactive_sessions_response
    data_files_response
    command_spec_with_parameters_parameters
