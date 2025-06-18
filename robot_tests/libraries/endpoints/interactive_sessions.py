@@ -1,6 +1,9 @@
 from qcrboxapiclient.client import Client
 from qcrboxapiclient.models.create_interactive_session import CreateInteractiveSession
 from qcrboxapiclient.models.q_cr_box_error_response import QCrBoxErrorResponse
+from qcrboxapiclient.models.q_cr_box_response_interactive_session_closed_response import (
+    QCrBoxResponseInteractiveSessionClosedResponse,
+)
 from qcrboxapiclient.models.q_cr_box_response_interactive_session_id_response import (
     QCrBoxResponseInteractiveSessionIDResponse,
 )
@@ -9,7 +12,9 @@ from qcrboxapiclient.models.q_cr_box_response_interactive_sessions_response impo
 )
 
 
-def close_interactive_session(client: Client, id: str) -> None | QCrBoxErrorResponse:
+def close_interactive_session(
+    client: Client, id: str
+) -> QCrBoxResponseInteractiveSessionClosedResponse | QCrBoxErrorResponse:
     from qcrboxapiclient.api.interactive_sessions import close_interactive_session
 
     return close_interactive_session.sync(id=id, client=client)

@@ -75,9 +75,13 @@ Check that get_interactive_session_by_id returns 404 for incorrect id
 
 Check that an interactive session can be closed
     ${response}=    Close Interactive Session    ${API_CLIENT}    ${TEST_INTERACTIVE_SESSION_ID}
-    IF    ${response}
-        Check For Error Response    ${response}
-    END
+    Check For Error Response    ${response}
+
+    Check Response Structure    ${response}
+    Check Response Has Attributes    ${response.payload}    interactive_sessions
+
+    ${interactive_sessions}=    Set Variable    ${response.payload.interactive_sessions[0]}
+    Check Response Has Attributes    ${interactive_sessions}    session_id    status    output_dataset_id
 
 
 *** Keywords ***
