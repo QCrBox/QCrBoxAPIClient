@@ -11,7 +11,6 @@ Model Reference
    command_spec_with_parameters_implemented_as
    create_interactive_session
    dataset_response_data_files
-   calculation_response_model
    q_cr_box_response_data_files_response
    datasets_response
    q_cr_box_health_response
@@ -21,10 +20,10 @@ Model Reference
    q_cr_box_response_calculations_response
    command_spec_with_parameters_parameters
    create_interactive_session_arguments
+   calculation_nats_response_model
    q_cr_box_response_interactive_session_id_response
    calculations_response
    q_cr_box_response_interactive_sessions_response
-   calculation_response_model_arguments
    create_dataset_body
    dataset_response
    interactive_session_id_response
@@ -34,6 +33,7 @@ Model Reference
    q_cr_box_response_applications_response
    interactive_session_info_response
    q_cr_box_response_commands_response
+   calculation_nats_response_model_arguments
    command_spec_with_parameters
    q_cr_box_response_interactive_session_closed_response
    interactive_session_info_response_arguments
