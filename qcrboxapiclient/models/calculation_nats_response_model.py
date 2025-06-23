@@ -5,21 +5,21 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.calculation_response_model_arguments import CalculationResponseModelArguments
+    from ..models.calculation_nats_response_model_arguments import CalculationNatsResponseModelArguments
 
 
-T = TypeVar("T", bound="CalculationResponseModel")
+T = TypeVar("T", bound="CalculationNatsResponseModel")
 
 
 @_attrs_define
-class CalculationResponseModel:
+class CalculationNatsResponseModel:
     """
     Attributes:
         calculation_id (str):
         application_slug (str):
         application_version (str):
         command_name (str):
-        arguments (CalculationResponseModelArguments):
+        arguments (CalculationNatsResponseModelArguments):
         status (str):
     """
 
@@ -27,7 +27,7 @@ class CalculationResponseModel:
     application_slug: str
     application_version: str
     command_name: str
-    arguments: "CalculationResponseModelArguments"
+    arguments: "CalculationNatsResponseModelArguments"
     status: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -61,7 +61,7 @@ class CalculationResponseModel:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.calculation_response_model_arguments import CalculationResponseModelArguments
+        from ..models.calculation_nats_response_model_arguments import CalculationNatsResponseModelArguments
 
         d = dict(src_dict)
         calculation_id = d.pop("calculation_id")
@@ -72,11 +72,11 @@ class CalculationResponseModel:
 
         command_name = d.pop("command_name")
 
-        arguments = CalculationResponseModelArguments.from_dict(d.pop("arguments"))
+        arguments = CalculationNatsResponseModelArguments.from_dict(d.pop("arguments"))
 
         status = d.pop("status")
 
-        calculation_response_model = cls(
+        calculation_nats_response_model = cls(
             calculation_id=calculation_id,
             application_slug=application_slug,
             application_version=application_version,
@@ -85,8 +85,8 @@ class CalculationResponseModel:
             status=status,
         )
 
-        calculation_response_model.additional_properties = d
-        return calculation_response_model
+        calculation_nats_response_model.additional_properties = d
+        return calculation_nats_response_model
 
     @property
     def additional_keys(self) -> list[str]:

@@ -2,8 +2,8 @@
 
 from .application_spec_with_commands import ApplicationSpecWithCommands
 from .applications_response import ApplicationsResponse
-from .calculation_response_model import CalculationResponseModel
-from .calculation_response_model_arguments import CalculationResponseModelArguments
+from .calculation_nats_response_model import CalculationNatsResponseModel
+from .calculation_nats_response_model_arguments import CalculationNatsResponseModelArguments
 from .calculations_response import CalculationsResponse
 from .close_interactive_session_response_nats import CloseInteractiveSessionResponseNATS
 from .command_spec_with_parameters import CommandSpecWithParameters
@@ -38,8 +38,8 @@ from .q_cr_box_response_interactive_sessions_response import QCrBoxResponseInter
 __all__ = (
     "ApplicationSpecWithCommands",
     "ApplicationsResponse",
-    "CalculationResponseModel",
-    "CalculationResponseModelArguments",
+    "CalculationNatsResponseModel",
+    "CalculationNatsResponseModelArguments",
     "CalculationsResponse",
     "CloseInteractiveSessionResponseNATS",
     "CommandSpecWithParameters",

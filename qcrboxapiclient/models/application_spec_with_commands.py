@@ -30,6 +30,7 @@ class ApplicationSpecWithCommands:
         email (Union[None, Unset, str]):
         doi (Union[None, Unset, str]):
         yaml_file_path (Union[None, Unset, str]):
+        gui_port (Union[None, Unset, str]):
     """
 
     name: str
@@ -43,6 +44,7 @@ class ApplicationSpecWithCommands:
     email: Union[None, Unset, str] = UNSET
     doi: Union[None, Unset, str] = UNSET
     yaml_file_path: Union[None, Unset, str] = UNSET
+    gui_port: Union[None, Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -91,6 +93,12 @@ class ApplicationSpecWithCommands:
         else:
             yaml_file_path = self.yaml_file_path
 
+        gui_port: Union[None, Unset, str]
+        if isinstance(self.gui_port, Unset):
+            gui_port = UNSET
+        else:
+            gui_port = self.gui_port
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -113,6 +121,8 @@ class ApplicationSpecWithCommands:
             field_dict["doi"] = doi
         if yaml_file_path is not UNSET:
             field_dict["yaml_file_path"] = yaml_file_path
+        if gui_port is not UNSET:
+            field_dict["gui_port"] = gui_port
 
         return field_dict
 
@@ -183,6 +193,15 @@ class ApplicationSpecWithCommands:
 
         yaml_file_path = _parse_yaml_file_path(d.pop("yaml_file_path", UNSET))
 
+        def _parse_gui_port(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        gui_port = _parse_gui_port(d.pop("gui_port", UNSET))
+
         application_spec_with_commands = cls(
             name=name,
             slug=slug,
@@ -195,6 +214,7 @@ class ApplicationSpecWithCommands:
             email=email,
             doi=doi,
             yaml_file_path=yaml_file_path,
+            gui_port=gui_port,
         )
 
         application_spec_with_commands.additional_properties = d

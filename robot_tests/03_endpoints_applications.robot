@@ -52,6 +52,7 @@ Check Applications Structure
         ...    url
         ...    registered_at
         ...    commands
+        ...    gui_port
         FOR    ${command}    IN    @{application.commands}
             Check Response Has Attributes    ${command}    name    description    implemented_as    parameters
         END
