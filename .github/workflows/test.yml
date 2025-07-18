@@ -86,7 +86,7 @@ jobs:
           cd $GITHUB_WORKSPACE/QCrBoxAPIClient
           poetry install
           cd robot_tests
-          robot *.robot
+          poetry run robot *.robot
 
       - name: Clean-up QCrBox
         if: always()
