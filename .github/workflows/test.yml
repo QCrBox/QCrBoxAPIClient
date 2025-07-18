@@ -80,15 +80,18 @@ jobs:
       - name: Run Robot Framework test suites
         run: |
           set -a
-          cd $GITHUB_WORKSPACE/QCrBox && source .env.test
+          cd $GITHUB_WORKSPACE/QCrBox
+          source .env.test
           set +a
-          cd $GITHUB_WORKSPACE/QCrBoxAPIClient/robot_tests
+          cd $GITHUB_WORKSPACE/QCrBoxAPIClient
           poetry install
+          cd robot_tests
           robot *.robot
 
       - name: Clean-up QCrBox
         if: always()
         run: |
+          cd $GITHUB_WORKSPACE/QCrBox
           qcb down || true
           docker container prune -f
           docker network prune -f
