@@ -38,3 +38,6 @@ scripts/scratch.py
 
 # Sphinx
 docs/_build
+
+# Coverage
+*.coverage

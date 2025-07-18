@@ -1,14 +1,12 @@
-name: Run QCrBoxAPIClient acceptance tests
+name: CI/CD
 
 # Controls when the workflow will run
 on:
   push:
     branches:
-      - dev
       - main
   pull_request:
     branches:
-      - dev
       - main
 
   # Allows to run this workflow manually from the Actions tab
@@ -86,7 +84,15 @@ jobs:
           cd $GITHUB_WORKSPACE/QCrBoxAPIClient
           poetry install
           cd robot_tests
-          poetry run robot *.robot
+          poetry run converage run -n robot *.robot
+
+      - name: Create coverage badge
+        run: |
+          cd $GITHUB_WORKSPACE/QCrBoxAPIClient
+          poetry run coverage-badge robot_tests/.coverage -o coverage.svg
+          git add coverage.svg
+          git diff --cached --quiet || git commit -m "Updating test coverage badge"
+          git push origin main
 
       - name: Clean-up QCrBox
         if: always()
