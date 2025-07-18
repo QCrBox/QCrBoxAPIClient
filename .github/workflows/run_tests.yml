@@ -84,7 +84,7 @@ jobs:
           cd $GITHUB_WORKSPACE/QCrBoxAPIClient
           poetry install
           cd robot_tests
-          poetry run converage run -n robot *.robot
+          poetry run coverage run -m robot *.robot
 
       - name: Create coverage badge
         run: |
