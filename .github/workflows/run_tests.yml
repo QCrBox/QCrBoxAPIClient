@@ -90,7 +90,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/QCrBoxAPIClient/robot_tests
           poetry run coverage-badge -f -o ../coverage.svg
-          git add coverage.svg
+          git add ../coverage.svg
           git diff --cached --quiet || git commit -m "Updating test coverage badge"
           git push origin main
 
