@@ -1,6 +1,7 @@
 # QCrBoxAPIClient
 
-[![CI/CD](https://github.com/QCrBox/QCrBoxAPIClient/actions/workflows/run_tests.yml/badge.svg)](https://github.com/QCrBox/QCrBoxAPIClient/actions/workflows/run_tests.yml)![Test coverage](coverage.svg)
+[![CI/CD](https://github.com/QCrBox/QCrBoxAPIClient/actions/workflows/run_tests.yml/badge.svg)](https://github.com/QCrBox/QCrBoxAPIClient/actions/workflows/run_tests.yml)
+![Test coverage](coverage.svg)
 
 A client library for accessing QCrBox
 
