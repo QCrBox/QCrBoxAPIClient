@@ -12,7 +12,9 @@ Suite Teardown      Teardown suite
 Test Timeout        2 minutes
 
 *** Variables ***
-${API_BASE_URL}             http://127.0.0.1:11000/
+${REGISTRY_ADDRESS}     %{QCRBOX_BIND_ADDRESS=127.0.0.1}
+${REGISTRY_PORT}        %{QCRBOX_REGISTRY_PORT=11000}
+${API_BASE_URL}         http://${REGISTRY_ADDRESS}:${REGISTRY_PORT}/api
 ${API_CLIENT}               ${EMPTY}
 ${TEST_CALCULATION_ID}      ${EMPTY}
 

@@ -1,0 +1,94 @@
+name: Run QCrBoxAPIClient acceptance tests
+
+# Controls when the workflow will run
+on:
+  push:
+    branches:
+      - dev
+      - main
+  pull_request:
+    branches:
+      - dev
+      - main
+
+  # Allows to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  run_robot_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+            path: ./QCrBoxAPIClient
+            fetch-depth: 0
+
+      - uses: actions/checkout@v4
+        with:
+            repository: QCrBox/QCrBox
+            ref: dev
+            path: ./QCrBox
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Poetry
+        run: |
+          pip install --upgrade poetry
+          pip install --upgrade uv
+
+      - name: Clean up any existing containers
+        run: |
+          docker container prune -f
+          docker network prune -f
+
+      - name: Bring up QCrBox registry and applications
+        run: |
+            cd $GITHUB_WORKSPACE/QCrBox
+            pwd
+            uv pip install --system -r ./pyqcrbox/requirements-dev.txt
+            uv pip install --system pyqcrbox@./pyqcrbox
+            qcb up --test-only
+
+      - name: Wait for QCrBox registry to be ready
+        run: |
+          cd $GITHUB_WORKSPACE/QCrBox
+          set -a
+          source .env.test
+          set +a
+          for i in {1..30}; do
+            if curl -s ${QCRBOX_BIND_ADDRESS}:${QCRBOX_REGISTRY_PORT}/api/healthz; then
+              exit 0
+            fi
+            echo "Waiting for registry to be ready... ($i/30)"
+            sleep 10
+          done
+          echo "Registry is not available"
+          exit 1
+
+      - name: Wait for applications to be registered
+        run: |
+          cd $GITHUB_WORKSPACE/QCrBox
+          set -a
+          source .env.test
+          set +a
+          sleep 30
+          curl -s ${QCRBOX_BIND_ADDRESS}:${QCRBOX_REGISTRY_PORT}/api/applications
+
+      - name: Run Robot Framework test suites
+        run: |
+          set -a
+          cd $GITHUB_WORKSPACE/QCrBox && source .env.test
+          set +a
+          cd $GITHUB_WORKSPACE/QCrBoxAPIClient/robot_tests
+          poetry install
+          robot *.robot
+
+      - name: Clean-up QCrBox
+        if: always()
+        run: |
+          qcb down || true
+          docker container prune -f
+          docker network prune -f
