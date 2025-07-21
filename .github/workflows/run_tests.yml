@@ -1,4 +1,4 @@
-name: Run test suites for QCrBoxAPIClient
+name: QCrBoxAPIClient CI
 
 # Controls when the workflow will run
 on:
