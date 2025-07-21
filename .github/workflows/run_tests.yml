@@ -39,13 +39,16 @@ jobs:
           cd $GITHUB_WORKSPACE/QCrBox
           bash .github/scripts/launch_qcb.sh $GITHUB_WORKSPACE/QCrBox
 
-      - name: Install Python Poetry and UV and project dependencies
+      - name: Install QCrBoxAPIClient
         run: |
-          pip install --upgrade poetry
-          pip install --upgrade uv
-          cd $GITHUB_WORKSPACE/QCrBox
-          uv pip install --system -r ./pyqcrbox/requirements-dev.txt
-          uv pip install --system pyqcrbox@./pyqcrbox
+          cd $GITHUB_WORKSPACE/QCrBoxAPIClient && poetry install
+
+      - name: Run Robot Framework test suites
+        run: |
+          cd $GITHUB_WORKSPACE/QCrBox && set -a && source .env.dev && set +a
+          cd $GITHUB_WORKSPACE/QCrBoxAPIClient/robot_tests
+          poetry run coverage run -m robot *.robot
+
       - name: Prepare QCrBoxAPIClient repository for adding coverage badge
         run: |
             cd $GITHUB_WORKSPACE/QCrBoxAPIClient
@@ -55,17 +58,7 @@ jobs:
             git checkout main
             git pull --ff-only origin main
 
-      - name: Install QCrBoxAPIClient
-        run: |
-          cd $GITHUB_WORKSPACE/QCrBoxAPIClient && poetry install
-
-      - name: Run Robot Framework test suites
-        run: |
-          cd $GITHUB_WORKSPACE/QCrBox && set -a && source .env.test && set +a
-          cd $GITHUB_WORKSPACE/QCrBoxAPIClient/robot_tests
-          poetry run coverage run -m robot *.robot
-
-      - name: Create new coverage badge and add to repository
+      - name: Update coverage badge and add to repository
         run: |
           cd $GITHUB_WORKSPACE/QCrBoxAPIClient/robot_tests
           poetry run coverage-badge -f -o ../coverage.svg
@@ -78,5 +71,4 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/QCrBox
           qcb down || true
-          docker container prune -f
-          docker network prune -f
+          docker system prune -af
