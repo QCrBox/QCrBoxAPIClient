@@ -14,6 +14,7 @@ for i in {1..30}; do
         # If healthy, query the applications endpoint and exit successfully
         curl -s ${QCRBOX_BIND_ADDRESS}:${QCRBOX_REGISTRY_PORT}/api/applications
         exit 0
+    fi
 done
 
 # If the loop completes, the registry did not start up in time
