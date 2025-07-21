@@ -41,6 +41,7 @@ jobs:
 
       - name: Install QCrBoxAPIClient
         run: |
+          pip install --upgrade poetry
           cd $GITHUB_WORKSPACE/QCrBoxAPIClient && poetry install
 
       - name: Run Robot Framework test suites
