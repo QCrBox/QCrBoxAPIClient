@@ -1,4 +1,4 @@
-name: CI/CD
+name: Run test suites for QCrBoxAPIClient
 
 # Controls when the workflow will run
 on:
@@ -16,85 +16,67 @@ jobs:
   run_robot_tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout QCrBoxAPIClient
+        uses: actions/checkout@v4
         with:
             path: ./QCrBoxAPIClient
 
-      - uses: actions/checkout@v4
+      - name: Checkout QCrBox
+        uses: actions/checkout@v4
         with:
-            repository: QCrBox/QCrBox
             ref: dev
             path: ./QCrBox
-            fetch-depth: 0
+            repository: QCrBox/QCrBox
 
-      - uses: actions/setup-python@v4
+      - name: Install Python 3.11
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: Install Poetry
+      - name: Install Python Poetry and UV and project dependencies
         run: |
           pip install --upgrade poetry
           pip install --upgrade uv
+          cd $GITHUB_WORKSPACE/QCrBox
+          uv pip install --system -r ./pyqcrbox/requirements-dev.txt
+          uv pip install --system pyqcrbox@./pyqcrbox
+          cd $GITHUB_WORKSPACE/QCrBoxAPIClient
+          poetry install
 
-      - name: Clean up any existing containers
+      - name: Prepare QCrBoxAPIClient repository for adding coverage badge
         run: |
-          docker container prune -f
-          docker network prune -f
+            cd $GITHUB_WORKSPACE/QCrBoxAPIClient
+            git config user.name "github-actions"
+            git config user.email "github-actions@github.com"
+            git fetch origin main
+            git checkout main
+            git pull --ff-only origin main
 
       - name: Bring up QCrBox registry and applications
         run: |
             cd $GITHUB_WORKSPACE/QCrBox
-            pwd
-            uv pip install --system -r ./pyqcrbox/requirements-dev.txt
-            uv pip install --system pyqcrbox@./pyqcrbox
+            docker container prune -f
+            docker network prune -f
             qcb up --test-only
 
       - name: Wait for QCrBox registry to be ready
-        run: |
-          cd $GITHUB_WORKSPACE/QCrBox
-          set -a
-          source .env.test
-          set +a
-          for i in {1..30}; do
-            if curl -s ${QCRBOX_BIND_ADDRESS}:${QCRBOX_REGISTRY_PORT}/api/healthz; then
-              exit 0
-            fi
-            echo "Waiting for registry to be ready... ($i/30)"
-            sleep 10
-          done
-          echo "Registry is not available"
-          exit 1
-
-      - name: Wait for applications to be registered
-        run: |
-          cd $GITHUB_WORKSPACE/QCrBox
-          set -a
-          source .env.test
-          set +a
-          sleep 30
-          curl -s ${QCRBOX_BIND_ADDRESS}:${QCRBOX_REGISTRY_PORT}/api/applications
+        run: $GITHUB_WORKSPACE/QCrBoxAPIClient/.github/scripts/check_qcb_healthy.sh
 
       - name: Run Robot Framework test suites
         run: |
-          set -a
           cd $GITHUB_WORKSPACE/QCrBox
+          set -a
           source .env.test
           set +a
-          cd $GITHUB_WORKSPACE/QCrBoxAPIClient
-          poetry install
-          cd robot_tests
+
+          cd $GITHUB_WORKSPACE/QCrBoxAPIClient/robot_tests
           poetry run coverage run -m robot *.robot
 
-      - name: Create coverage badge
+      - name: Create new coverage badge and add to repository
         run: |
           cd $GITHUB_WORKSPACE/QCrBoxAPIClient/robot_tests
           poetry run coverage-badge -f -o ../coverage.svg
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git fetch origin main
-          git checkout main
-          git pull --ff-only origin main
           git add ../coverage.svg
           git diff --cached --quiet || git commit -m "Updating test coverage badge"
           git push origin main
