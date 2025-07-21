@@ -61,7 +61,8 @@ jobs:
             qcb up --test-only
 
       - name: Wait for QCrBox registry to be ready
-        run: $GITHUB_WORKSPACE/QCrBoxAPIClient/.github/scripts/check_qcb_healthy.sh
+        run: |
+          bash $GITHUB_WORKSPACE/QCrBoxAPIClient/.github/scripts/check_qcb_healthy.sh
 
       - name: Run Robot Framework test suites
         run: |
