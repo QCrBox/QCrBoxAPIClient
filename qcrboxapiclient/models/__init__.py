@@ -24,6 +24,9 @@ from .interactive_session_id_response import InteractiveSessionIDResponse
 from .interactive_session_info_response import InteractiveSessionInfoResponse
 from .interactive_session_info_response_arguments import InteractiveSessionInfoResponseArguments
 from .interactive_sessions_response import InteractiveSessionsResponse
+from .invoke_command import InvokeCommand
+from .invoke_command_arguments import InvokeCommandArguments
+from .invoke_command_response import InvokeCommandResponse
 from .q_cr_box_error_response import QCrBoxErrorResponse
 from .q_cr_box_health_response import QCrBoxHealthResponse
 from .q_cr_box_response_applications_response import QCrBoxResponseApplicationsResponse
@@ -34,6 +37,7 @@ from .q_cr_box_response_datasets_response import QCrBoxResponseDatasetsResponse
 from .q_cr_box_response_interactive_session_closed_response import QCrBoxResponseInteractiveSessionClosedResponse
 from .q_cr_box_response_interactive_session_id_response import QCrBoxResponseInteractiveSessionIDResponse
 from .q_cr_box_response_interactive_sessions_response import QCrBoxResponseInteractiveSessionsResponse
+from .q_cr_box_response_invoke_command_response import QCrBoxResponseInvokeCommandResponse
 
 __all__ = (
     "ApplicationSpecWithCommands",
@@ -60,6 +64,9 @@ __all__ = (
     "InteractiveSessionInfoResponse",
     "InteractiveSessionInfoResponseArguments",
     "InteractiveSessionsResponse",
+    "InvokeCommand",
+    "InvokeCommandArguments",
+    "InvokeCommandResponse",
     "QCrBoxErrorResponse",
     "QCrBoxHealthResponse",
     "QCrBoxResponseApplicationsResponse",
@@ -70,4 +77,5 @@ __all__ = (
     "QCrBoxResponseInteractiveSessionClosedResponse",
     "QCrBoxResponseInteractiveSessionIDResponse",
     "QCrBoxResponseInteractiveSessionsResponse",
+    "QCrBoxResponseInvokeCommandResponse",
 )

@@ -6,6 +6,8 @@ from robot.api.deco import keyword
 from qcrboxapiclient.models.create_dataset_body import CreateDatasetBody
 from qcrboxapiclient.models.create_interactive_session import CreateInteractiveSession
 from qcrboxapiclient.models.create_interactive_session_arguments import CreateInteractiveSessionArguments
+from qcrboxapiclient.models.invoke_command import InvokeCommand
+from qcrboxapiclient.models.invoke_command_arguments import InvokeCommandArguments
 from qcrboxapiclient.types import File
 
 
@@ -45,6 +47,12 @@ def create_file_upload_body(file_path):
 def create_interactive_session_create_body(application_slug, application_version, arguments):
     arguments = CreateInteractiveSessionArguments.from_dict(arguments)
     return CreateInteractiveSession(application_slug, application_version, arguments)
+
+
+@keyword
+def create_invoke_command_body(application_slug, application_version, command_name, arguments):
+    arguments = InvokeCommandArguments.from_dict(arguments)
+    return InvokeCommand(application_slug, application_version, command_name, arguments)
 
 
 @keyword
