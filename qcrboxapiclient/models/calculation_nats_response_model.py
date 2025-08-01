@@ -1,8 +1,10 @@
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.calculation_nats_response_model_arguments import CalculationNatsResponseModelArguments
@@ -21,6 +23,7 @@ class CalculationNatsResponseModel:
         command_name (str):
         arguments (CalculationNatsResponseModelArguments):
         status (str):
+        output_dataset_id (Union[None, Unset, str]):
     """
 
     calculation_id: str
@@ -29,6 +32,7 @@ class CalculationNatsResponseModel:
     command_name: str
     arguments: "CalculationNatsResponseModelArguments"
     status: str
+    output_dataset_id: Union[None, Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -44,6 +48,12 @@ class CalculationNatsResponseModel:
 
         status = self.status
 
+        output_dataset_id: Union[None, Unset, str]
+        if isinstance(self.output_dataset_id, Unset):
+            output_dataset_id = UNSET
+        else:
+            output_dataset_id = self.output_dataset_id
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -56,6 +66,8 @@ class CalculationNatsResponseModel:
                 "status": status,
             }
         )
+        if output_dataset_id is not UNSET:
+            field_dict["output_dataset_id"] = output_dataset_id
 
         return field_dict
 
@@ -76,6 +88,15 @@ class CalculationNatsResponseModel:
 
         status = d.pop("status")
 
+        def _parse_output_dataset_id(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        output_dataset_id = _parse_output_dataset_id(d.pop("output_dataset_id", UNSET))
+
         calculation_nats_response_model = cls(
             calculation_id=calculation_id,
             application_slug=application_slug,
@@ -83,6 +104,7 @@ class CalculationNatsResponseModel:
             command_name=command_name,
             arguments=arguments,
             status=status,
+            output_dataset_id=output_dataset_id,
         )
 
         calculation_nats_response_model.additional_properties = d

@@ -58,7 +58,7 @@ Check invoke_command can invoke a non-interactive command
     ${response}=    Invoke Command    ${API_CLIENT}    ${create_body}
     Check For Error Response    ${response}
 
-    Sleep    3s    "Waiting for non-interactive session to start and be registered"
+    Sleep    1s    "Waiting for non-interactive command to start and be registered"
 
     Check Response Structure    ${response}
     Check Response Has Attributes    ${response.payload}    calculation_id

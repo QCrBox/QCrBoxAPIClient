@@ -77,4 +77,5 @@ Check Calculations Structure
         ...    command_name
         ...    status
         ...    arguments
+        ...    output_dataset_id
     END

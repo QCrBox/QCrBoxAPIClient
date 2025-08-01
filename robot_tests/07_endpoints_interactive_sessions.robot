@@ -43,7 +43,7 @@ Check create_interactive_session_with_arguments can create an interactive sessio
     ${response}=    Create Interactive Session With Arguments    ${API_CLIENT}    ${create_body}
     Check For Error Response    ${response}
 
-    Sleep    3s    "Waiting for interactive session to be registered"
+    Sleep    1s    "Waiting for interactive session to be registered"
 
     Check Response Structure    ${response}
     Check Response Has Attributes    ${response.payload}    interactive_session_id
