@@ -1,29 +1,28 @@
-"""Invoking an interactive olex2 session.
-
-This is an example script of creating a dataset and passing the data file within
-the dataset to the API to invoke an Olex2 session accessible at:
-
-    http://127.0.0.1:12004/vnc.html?path=vnc&autoconnect=true&resize=remote&reconnect=true&show_dot=true
-
-NB: you will need to remove the calls to `close_interactive_session` and
-`delete_dataset_by_id` to actually interact with the interactive session.
-"""
+"""Invoking an non-interactive qcrboxtools command."""
 
 import io
 import pathlib
+import time
 
+from qcrboxapiclient.api.calculations import get_calculation_by_id, stop_running_calculation
 from qcrboxapiclient.api.commands import invoke_command
 from qcrboxapiclient.api.datasets import create_dataset, delete_dataset_by_id
 from qcrboxapiclient.client import Client
-from qcrboxapiclient.models import CreateDatasetBody, InvokeCommand, InvokeCommandArguments, QCrBoxErrorResponse
+from qcrboxapiclient.models import (
+    CreateDatasetBody,
+    InvokeCommandParameters,
+    InvokeCommandParametersArguments,
+    QCrBoxErrorResponse,
+    QCrBoxResponseCalculationsResponse,
+    QCrBoxResponseStoppedCalculationResponse,
+)
 from qcrboxapiclient.types import File
 
 # Create a synchronous client, which is passed to each `sync()` for an API endpoint
 # via keyword
 client = Client(base_url="http://127.0.0.1:11000")
 
-# Example file in QCrBox repository, but could substitite with `work.cif` which
-# 100% works w/ Olex2 and Crystal Explorer
+# Example file in QCrBox repository, but could substitite with `work.cif`
 test_file = pathlib.Path("../robot_tests/test_data/api_client_test_cif.cif").resolve()
 
 # To upload the file to the registry, we need to create a dataset and attach the
@@ -36,7 +35,7 @@ upload_payload = CreateDatasetBody(file)
 # Assuming everything went OK, thn we will get a QCrBoxResponse. If an error
 # occurred then the response is of type QCrBoxErrorResponse
 response = create_dataset.sync(client=client, body=upload_payload)
-if isinstance(response, QCrBoxErrorResponse):
+if isinstance(response, QCrBoxErrorResponse) or response is None:
     raise TypeError("Failed to upload file", response)
 else:
     print("Created dataset:", response)
@@ -47,17 +46,16 @@ else:
 dataset_id = response.payload.datasets[0].qcrbox_dataset_id
 data_file_id = response.payload.datasets[0].data_files[test_file.name].qcrbox_file_id
 
-# To create an interactive olex2 session we call the create_interactive_session_with_arguments
-# endpoint with a payload of application we want to start and arguments for the olex2
-# command. For olex2, we need an argument named "input_file" which contains a data_file_id.
-# Note that the arguments is a dict and we use `CreateInteractiveSessionArguments` to
-# marshal out input into Json for the API
-arguments = InvokeCommandArguments.from_dict(
+# To invoke a non-interactive command, we need to create objects which represent
+# the JSON data sent in the request to the API
+arguments = InvokeCommandParametersArguments.from_dict(
     {"input_cif": {"data_file_id": data_file_id}, "output_cif_path": "/opt/qcrbox/test_unified_cif.cif"}
 )
-create_session = InvokeCommand("qcrboxtools", "0.0.5", "to_unified_cif", arguments)
+create_session = InvokeCommandParameters("qcrboxtools", "0.0.5", "to_unified_cif", arguments)
+
+# Send the request to the API
 response = invoke_command.sync(client=client, body=create_session)
-if isinstance(response, QCrBoxErrorResponse):
+if isinstance(response, QCrBoxErrorResponse) or response is None:
     raise TypeError("Failed to invoke command", response)
 else:
     print("Invoked command session:", response)
@@ -67,6 +65,31 @@ else:
 # interactive_session_id which is also the calcualtion id of the interactive session
 calculation_id = response.payload.calculation_id
 print("Calculation ID:", calculation_id)
+
+# Check to see if a calculation is still running
+quit_after = 5
+calculation_status = "running"
+count = 0
+while calculation_status != "successful" and count < quit_after:
+    response = get_calculation_by_id.sync(id=calculation_id, client=client)
+    if isinstance(response, QCrBoxResponseCalculationsResponse):
+        print(f"Calculation {calculation_id} status is {response.payload.calculations[0].status}")
+        calculation_status = response.payload.calculations[0].status
+    time.sleep(2)
+    count += 1
+
+# If the command is still running, we can terminate it
+response = get_calculation_by_id.sync(id=calculation_id, client=client)
+if not isinstance(response, QCrBoxResponseCalculationsResponse):
+    print("Failed to get calculation response")
+else:
+    if response.payload.calculations[0].status == "running":
+        print("Calculation is still running, so stopping it forcefully with stop_running_calculations")
+        response = stop_running_calculation.sync(id=calculation_id, client=client)
+        if isinstance(response, QCrBoxErrorResponse) or response is None:
+            raise TypeError("Failed to stop running calculation:", response)
+        else:
+            print("Stopped running calculation:", response)
 
 # Delete the dataset afterward, because we are just using this for test purposes
 response = delete_dataset_by_id.sync(id=dataset_id, client=client)
