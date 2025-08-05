@@ -4,11 +4,11 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="CreateInteractiveSessionArguments")
+T = TypeVar("T", bound="InvokeCommandParametersArguments")
 
 
 @_attrs_define
-class CreateInteractiveSessionArguments:
+class InvokeCommandParametersArguments:
     """ """
 
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -22,10 +22,10 @@ class CreateInteractiveSessionArguments:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        create_interactive_session_arguments = cls()
+        invoke_command_parameters_arguments = cls()
 
-        create_interactive_session_arguments.additional_properties = d
-        return create_interactive_session_arguments
+        invoke_command_parameters_arguments.additional_properties = d
+        return invoke_command_parameters_arguments
 
     @property
     def additional_keys(self) -> list[str]:

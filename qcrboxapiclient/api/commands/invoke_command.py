@@ -5,7 +5,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.invoke_command import InvokeCommand
+from ...models.invoke_command_parameters import InvokeCommandParameters
 from ...models.q_cr_box_error_response import QCrBoxErrorResponse
 from ...models.q_cr_box_response_invoke_command_response import QCrBoxResponseInvokeCommandResponse
 from ...types import Response
@@ -13,7 +13,7 @@ from ...types import Response
 
 def _get_kwargs(
     *,
-    body: InvokeCommand,
+    body: InvokeCommandParameters,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -66,14 +66,14 @@ def _build_response(
 def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: InvokeCommand,
+    body: InvokeCommandParameters,
 ) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseInvokeCommandResponse]]:
     """Invoke a command with arguments
 
-     Create an interactive session with the provided arguments arguments.
+     Create an interactive session with the provided arguments.
 
     Args:
-        body (InvokeCommand):
+        body (InvokeCommandParameters):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -97,14 +97,14 @@ def sync_detailed(
 def sync(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: InvokeCommand,
+    body: InvokeCommandParameters,
 ) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseInvokeCommandResponse]]:
     """Invoke a command with arguments
 
-     Create an interactive session with the provided arguments arguments.
+     Create an interactive session with the provided arguments.
 
     Args:
-        body (InvokeCommand):
+        body (InvokeCommandParameters):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -123,14 +123,14 @@ def sync(
 async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: InvokeCommand,
+    body: InvokeCommandParameters,
 ) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseInvokeCommandResponse]]:
     """Invoke a command with arguments
 
-     Create an interactive session with the provided arguments arguments.
+     Create an interactive session with the provided arguments.
 
     Args:
-        body (InvokeCommand):
+        body (InvokeCommandParameters):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -152,14 +152,14 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: InvokeCommand,
+    body: InvokeCommandParameters,
 ) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseInvokeCommandResponse]]:
     """Invoke a command with arguments
 
-     Create an interactive session with the provided arguments arguments.
+     Create an interactive session with the provided arguments.
 
     Args:
-        body (InvokeCommand):
+        body (InvokeCommandParameters):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

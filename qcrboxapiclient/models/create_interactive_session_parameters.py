@@ -5,34 +5,30 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.invoke_command_arguments import InvokeCommandArguments
+    from ..models.create_interactive_session_parameters_arguments import CreateInteractiveSessionParametersArguments
 
 
-T = TypeVar("T", bound="InvokeCommand")
+T = TypeVar("T", bound="CreateInteractiveSessionParameters")
 
 
 @_attrs_define
-class InvokeCommand:
+class CreateInteractiveSessionParameters:
     """
     Attributes:
         application_slug (str):
         application_version (str):
-        command_name (str):
-        arguments (InvokeCommandArguments):
+        arguments (CreateInteractiveSessionParametersArguments):
     """
 
     application_slug: str
     application_version: str
-    command_name: str
-    arguments: "InvokeCommandArguments"
+    arguments: "CreateInteractiveSessionParametersArguments"
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         application_slug = self.application_slug
 
         application_version = self.application_version
-
-        command_name = self.command_name
 
         arguments = self.arguments.to_dict()
 
@@ -42,7 +38,6 @@ class InvokeCommand:
             {
                 "application_slug": application_slug,
                 "application_version": application_version,
-                "command_name": command_name,
                 "arguments": arguments,
             }
         )
@@ -51,26 +46,23 @@ class InvokeCommand:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.invoke_command_arguments import InvokeCommandArguments
+        from ..models.create_interactive_session_parameters_arguments import CreateInteractiveSessionParametersArguments
 
         d = dict(src_dict)
         application_slug = d.pop("application_slug")
 
         application_version = d.pop("application_version")
 
-        command_name = d.pop("command_name")
+        arguments = CreateInteractiveSessionParametersArguments.from_dict(d.pop("arguments"))
 
-        arguments = InvokeCommandArguments.from_dict(d.pop("arguments"))
-
-        invoke_command = cls(
+        create_interactive_session_parameters = cls(
             application_slug=application_slug,
             application_version=application_version,
-            command_name=command_name,
             arguments=arguments,
         )
 
-        invoke_command.additional_properties = d
-        return invoke_command
+        create_interactive_session_parameters.additional_properties = d
+        return create_interactive_session_parameters
 
     @property
     def additional_keys(self) -> list[str]:

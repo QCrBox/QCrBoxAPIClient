@@ -11,8 +11,8 @@ from .command_spec_with_parameters_implemented_as import CommandSpecWithParamete
 from .command_spec_with_parameters_parameters import CommandSpecWithParametersParameters
 from .commands_response import CommandsResponse
 from .create_dataset_body import CreateDatasetBody
-from .create_interactive_session import CreateInteractiveSession
-from .create_interactive_session_arguments import CreateInteractiveSessionArguments
+from .create_interactive_session_parameters import CreateInteractiveSessionParameters
+from .create_interactive_session_parameters_arguments import CreateInteractiveSessionParametersArguments
 from .data_file_metadata_response import DataFileMetadataResponse
 from .data_files_response import DataFilesResponse
 from .dataset_response import DatasetResponse
@@ -24,8 +24,8 @@ from .interactive_session_id_response import InteractiveSessionIDResponse
 from .interactive_session_info_response import InteractiveSessionInfoResponse
 from .interactive_session_info_response_arguments import InteractiveSessionInfoResponseArguments
 from .interactive_sessions_response import InteractiveSessionsResponse
-from .invoke_command import InvokeCommand
-from .invoke_command_arguments import InvokeCommandArguments
+from .invoke_command_parameters import InvokeCommandParameters
+from .invoke_command_parameters_arguments import InvokeCommandParametersArguments
 from .invoke_command_response import InvokeCommandResponse
 from .q_cr_box_error_response import QCrBoxErrorResponse
 from .q_cr_box_health_response import QCrBoxHealthResponse
@@ -38,6 +38,9 @@ from .q_cr_box_response_interactive_session_closed_response import QCrBoxRespons
 from .q_cr_box_response_interactive_session_id_response import QCrBoxResponseInteractiveSessionIDResponse
 from .q_cr_box_response_interactive_sessions_response import QCrBoxResponseInteractiveSessionsResponse
 from .q_cr_box_response_invoke_command_response import QCrBoxResponseInvokeCommandResponse
+from .q_cr_box_response_stopped_calculation_response import QCrBoxResponseStoppedCalculationResponse
+from .stopped_calculation_response import StoppedCalculationResponse
+from .stopped_calculation_response_msg import StoppedCalculationResponseMsg
 
 __all__ = (
     "ApplicationSpecWithCommands",
@@ -51,8 +54,8 @@ __all__ = (
     "CommandSpecWithParametersParameters",
     "CommandsResponse",
     "CreateDatasetBody",
-    "CreateInteractiveSession",
-    "CreateInteractiveSessionArguments",
+    "CreateInteractiveSessionParameters",
+    "CreateInteractiveSessionParametersArguments",
     "DataFileMetadataResponse",
     "DataFilesResponse",
     "DatasetResponse",
@@ -64,8 +67,8 @@ __all__ = (
     "InteractiveSessionInfoResponse",
     "InteractiveSessionInfoResponseArguments",
     "InteractiveSessionsResponse",
-    "InvokeCommand",
-    "InvokeCommandArguments",
+    "InvokeCommandParameters",
+    "InvokeCommandParametersArguments",
     "InvokeCommandResponse",
     "QCrBoxErrorResponse",
     "QCrBoxHealthResponse",
@@ -78,4 +81,7 @@ __all__ = (
     "QCrBoxResponseInteractiveSessionIDResponse",
     "QCrBoxResponseInteractiveSessionsResponse",
     "QCrBoxResponseInvokeCommandResponse",
+    "QCrBoxResponseStoppedCalculationResponse",
+    "StoppedCalculationResponse",
+    "StoppedCalculationResponseMsg",
 )

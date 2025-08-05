@@ -1,54 +1,32 @@
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-if TYPE_CHECKING:
-    from ..models.calculation_nats_response_model_arguments import CalculationNatsResponseModelArguments
-
-
-T = TypeVar("T", bound="CalculationNatsResponseModel")
+T = TypeVar("T", bound="StoppedCalculationResponseMsg")
 
 
 @_attrs_define
-class CalculationNatsResponseModel:
+class StoppedCalculationResponseMsg:
     """
     Attributes:
         calculation_id (str):
-        client_private_inbox (str):
-        application_slug (str):
-        application_version (str):
-        command_name (str):
-        arguments (CalculationNatsResponseModelArguments):
         status (str):
         output_dataset_id (Union[None, Unset, str]):
+        error_msg (Union[None, Unset, str]):
     """
 
     calculation_id: str
-    client_private_inbox: str
-    application_slug: str
-    application_version: str
-    command_name: str
-    arguments: "CalculationNatsResponseModelArguments"
     status: str
     output_dataset_id: Union[None, Unset, str] = UNSET
+    error_msg: Union[None, Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         calculation_id = self.calculation_id
-
-        client_private_inbox = self.client_private_inbox
-
-        application_slug = self.application_slug
-
-        application_version = self.application_version
-
-        command_name = self.command_name
-
-        arguments = self.arguments.to_dict()
 
         status = self.status
 
@@ -58,40 +36,31 @@ class CalculationNatsResponseModel:
         else:
             output_dataset_id = self.output_dataset_id
 
+        error_msg: Union[None, Unset, str]
+        if isinstance(self.error_msg, Unset):
+            error_msg = UNSET
+        else:
+            error_msg = self.error_msg
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "calculation_id": calculation_id,
-                "client_private_inbox": client_private_inbox,
-                "application_slug": application_slug,
-                "application_version": application_version,
-                "command_name": command_name,
-                "arguments": arguments,
                 "status": status,
             }
         )
         if output_dataset_id is not UNSET:
             field_dict["output_dataset_id"] = output_dataset_id
+        if error_msg is not UNSET:
+            field_dict["error_msg"] = error_msg
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.calculation_nats_response_model_arguments import CalculationNatsResponseModelArguments
-
         d = dict(src_dict)
         calculation_id = d.pop("calculation_id")
-
-        client_private_inbox = d.pop("client_private_inbox")
-
-        application_slug = d.pop("application_slug")
-
-        application_version = d.pop("application_version")
-
-        command_name = d.pop("command_name")
-
-        arguments = CalculationNatsResponseModelArguments.from_dict(d.pop("arguments"))
 
         status = d.pop("status")
 
@@ -104,19 +73,24 @@ class CalculationNatsResponseModel:
 
         output_dataset_id = _parse_output_dataset_id(d.pop("output_dataset_id", UNSET))
 
-        calculation_nats_response_model = cls(
+        def _parse_error_msg(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        error_msg = _parse_error_msg(d.pop("error_msg", UNSET))
+
+        stopped_calculation_response_msg = cls(
             calculation_id=calculation_id,
-            client_private_inbox=client_private_inbox,
-            application_slug=application_slug,
-            application_version=application_version,
-            command_name=command_name,
-            arguments=arguments,
             status=status,
             output_dataset_id=output_dataset_id,
+            error_msg=error_msg,
         )
 
-        calculation_nats_response_model.additional_properties = d
-        return calculation_nats_response_model
+        stopped_calculation_response_msg.additional_properties = d
+        return stopped_calculation_response_msg
 
     @property
     def additional_keys(self) -> list[str]:

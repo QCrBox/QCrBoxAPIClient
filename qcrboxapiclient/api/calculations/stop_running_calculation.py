@@ -5,43 +5,37 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.create_interactive_session_parameters import CreateInteractiveSessionParameters
 from ...models.q_cr_box_error_response import QCrBoxErrorResponse
-from ...models.q_cr_box_response_interactive_session_id_response import QCrBoxResponseInteractiveSessionIDResponse
+from ...models.q_cr_box_response_stopped_calculation_response import QCrBoxResponseStoppedCalculationResponse
 from ...types import Response
 
 
 def _get_kwargs(
-    *,
-    body: CreateInteractiveSessionParameters,
+    id: str,
 ) -> dict[str, Any]:
-    headers: dict[str, Any] = {}
-
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/api/interactive-sessions",
+        "url": f"/api/calculations/{id}/stop",
     }
 
-    _body = body.to_dict()
-
-    _kwargs["json"] = _body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseInteractiveSessionIDResponse]]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseStoppedCalculationResponse]]:
     if response.status_code == 201:
-        response_201 = QCrBoxResponseInteractiveSessionIDResponse.from_dict(response.json())
+        response_201 = QCrBoxResponseStoppedCalculationResponse.from_dict(response.json())
 
         return response_201
     if response.status_code == 400:
         response_400 = QCrBoxErrorResponse.from_dict(response.json())
 
         return response_400
+    if response.status_code == 404:
+        response_404 = QCrBoxErrorResponse.from_dict(response.json())
+
+        return response_404
     if response.status_code == 500:
         response_500 = QCrBoxErrorResponse.from_dict(response.json())
 
@@ -54,7 +48,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseInteractiveSessionIDResponse]]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseStoppedCalculationResponse]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -64,27 +58,27 @@ def _build_response(
 
 
 def sync_detailed(
+    id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    body: CreateInteractiveSessionParameters,
-) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseInteractiveSessionIDResponse]]:
-    """Create interactive session
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseStoppedCalculationResponse]]:
+    """Stop a running calculation
 
-     Create an interactive session with the provided arguments arguments.
+     Stop a currently running command, interactive and non-interactive.
 
     Args:
-        body (CreateInteractiveSessionParameters):
+        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[QCrBoxErrorResponse, QCrBoxResponseInteractiveSessionIDResponse]]
+        Response[Union[QCrBoxErrorResponse, QCrBoxResponseStoppedCalculationResponse]]
     """
 
     kwargs = _get_kwargs(
-        body=body,
+        id=id,
     )
 
     response = client.get_httpx_client().request(
@@ -95,53 +89,53 @@ def sync_detailed(
 
 
 def sync(
+    id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    body: CreateInteractiveSessionParameters,
-) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseInteractiveSessionIDResponse]]:
-    """Create interactive session
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseStoppedCalculationResponse]]:
+    """Stop a running calculation
 
-     Create an interactive session with the provided arguments arguments.
+     Stop a currently running command, interactive and non-interactive.
 
     Args:
-        body (CreateInteractiveSessionParameters):
+        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[QCrBoxErrorResponse, QCrBoxResponseInteractiveSessionIDResponse]
+        Union[QCrBoxErrorResponse, QCrBoxResponseStoppedCalculationResponse]
     """
 
     return sync_detailed(
+        id=id,
         client=client,
-        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
+    id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    body: CreateInteractiveSessionParameters,
-) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseInteractiveSessionIDResponse]]:
-    """Create interactive session
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseStoppedCalculationResponse]]:
+    """Stop a running calculation
 
-     Create an interactive session with the provided arguments arguments.
+     Stop a currently running command, interactive and non-interactive.
 
     Args:
-        body (CreateInteractiveSessionParameters):
+        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[QCrBoxErrorResponse, QCrBoxResponseInteractiveSessionIDResponse]]
+        Response[Union[QCrBoxErrorResponse, QCrBoxResponseStoppedCalculationResponse]]
     """
 
     kwargs = _get_kwargs(
-        body=body,
+        id=id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -150,28 +144,28 @@ async def asyncio_detailed(
 
 
 async def asyncio(
+    id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    body: CreateInteractiveSessionParameters,
-) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseInteractiveSessionIDResponse]]:
-    """Create interactive session
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseStoppedCalculationResponse]]:
+    """Stop a running calculation
 
-     Create an interactive session with the provided arguments arguments.
+     Stop a currently running command, interactive and non-interactive.
 
     Args:
-        body (CreateInteractiveSessionParameters):
+        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[QCrBoxErrorResponse, QCrBoxResponseInteractiveSessionIDResponse]
+        Union[QCrBoxErrorResponse, QCrBoxResponseStoppedCalculationResponse]
     """
 
     return (
         await asyncio_detailed(
+            id=id,
             client=client,
-            body=body,
         )
     ).parsed
