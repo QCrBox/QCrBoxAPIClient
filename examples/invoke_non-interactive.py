@@ -14,7 +14,6 @@ from qcrboxapiclient.models import (
     InvokeCommandParametersArguments,
     QCrBoxErrorResponse,
     QCrBoxResponseCalculationsResponse,
-    QCrBoxResponseStoppedCalculationResponse,
 )
 from qcrboxapiclient.types import File
 
