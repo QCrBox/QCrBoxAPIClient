@@ -24,10 +24,10 @@ def _get_kwargs(
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
 ) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseStoppedCalculationResponse]]:
-    if response.status_code == 201:
-        response_201 = QCrBoxResponseStoppedCalculationResponse.from_dict(response.json())
+    if response.status_code == 200:
+        response_200 = QCrBoxResponseStoppedCalculationResponse.from_dict(response.json())
 
-        return response_201
+        return response_200
     if response.status_code == 400:
         response_400 = QCrBoxErrorResponse.from_dict(response.json())
 

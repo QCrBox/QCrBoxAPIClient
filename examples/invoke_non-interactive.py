@@ -82,6 +82,7 @@ response = get_calculation_by_id.sync(id=calculation_id, client=client)
 if not isinstance(response, QCrBoxResponseCalculationsResponse):
     print("Failed to get calculation response")
 else:
+    print("Calculation status:", response.payload.calculations[0])
     if response.payload.calculations[0].status == "running":
         print("Calculation is still running, so stopping it forcefully with stop_running_calculations")
         response = stop_running_calculation.sync(id=calculation_id, client=client)
