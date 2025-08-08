@@ -6,27 +6,27 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="StoppedCalculationResponseMsg")
+T = TypeVar("T", bound="CloseInteractiveSessionResponse")
 
 
 @_attrs_define
-class StoppedCalculationResponseMsg:
+class CloseInteractiveSessionResponse:
     """
     Attributes:
-        calculation_id (str):
+        session_id (str):
         status (str):
         output_dataset_id (Union[None, Unset, str]):
         error_msg (Union[None, Unset, str]):
     """
 
-    calculation_id: str
+    session_id: str
     status: str
     output_dataset_id: Union[None, Unset, str] = UNSET
     error_msg: Union[None, Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        calculation_id = self.calculation_id
+        session_id = self.session_id
 
         status = self.status
 
@@ -46,7 +46,7 @@ class StoppedCalculationResponseMsg:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "calculation_id": calculation_id,
+                "session_id": session_id,
                 "status": status,
             }
         )
@@ -60,7 +60,7 @@ class StoppedCalculationResponseMsg:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        calculation_id = d.pop("calculation_id")
+        session_id = d.pop("session_id")
 
         status = d.pop("status")
 
@@ -82,15 +82,15 @@ class StoppedCalculationResponseMsg:
 
         error_msg = _parse_error_msg(d.pop("error_msg", UNSET))
 
-        stopped_calculation_response_msg = cls(
-            calculation_id=calculation_id,
+        close_interactive_session_response = cls(
+            session_id=session_id,
             status=status,
             output_dataset_id=output_dataset_id,
             error_msg=error_msg,
         )
 
-        stopped_calculation_response_msg.additional_properties = d
-        return stopped_calculation_response_msg
+        close_interactive_session_response.additional_properties = d
+        return close_interactive_session_response
 
     @property
     def additional_keys(self) -> list[str]:

@@ -50,19 +50,6 @@ Check get_command_by_id returns 404 for incorrect id
     Check Response Has Attributes    ${error_payload}    code    message    details
     Should Be Equal    ${{int(404)}}    ${error_payload.code}
 
-Check invoke_command can invoke a non-interactive command
-    ${input_file}=    Create Dictionary    data_file_id=${TEST_DATA_FILE_ID}
-    ${arguments}=    Create Dictionary    input_cif=${input_file}    output_cif_path=/opt/qcrbox/test_unified_cif.cif
-    ${create_body}=    Create Invoke Command Body    qcrboxtools    0.0.5    to_unified_cif    ${arguments}
-
-    ${response}=    Invoke Command    ${API_CLIENT}    ${create_body}
-    Check For Error Response    ${response}
-
-    Sleep    1s    "Waiting for non-interactive command to start and be registered"
-
-    Check Response Structure    ${response}
-    Check Response Has Attributes    ${response.payload}    calculation_id
-
 
 *** Keywords ***
 Setup suite

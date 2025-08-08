@@ -4,28 +4,59 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="CalculationNatsResponseModelArguments")
+T = TypeVar("T", bound="DataFileInfoResponse")
 
 
 @_attrs_define
-class CalculationNatsResponseModelArguments:
-    """ """
+class DataFileInfoResponse:
+    """
+    Attributes:
+        qcrbox_file_id (str):
+        filename (str):
+        filetype (str):
+    """
 
+    qcrbox_file_id: str
+    filename: str
+    filetype: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        qcrbox_file_id = self.qcrbox_file_id
+
+        filename = self.filename
+
+        filetype = self.filetype
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
+        field_dict.update(
+            {
+                "qcrbox_file_id": qcrbox_file_id,
+                "filename": filename,
+                "filetype": filetype,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        calculation_nats_response_model_arguments = cls()
+        qcrbox_file_id = d.pop("qcrbox_file_id")
 
-        calculation_nats_response_model_arguments.additional_properties = d
-        return calculation_nats_response_model_arguments
+        filename = d.pop("filename")
+
+        filetype = d.pop("filetype")
+
+        data_file_info_response = cls(
+            qcrbox_file_id=qcrbox_file_id,
+            filename=filename,
+            filetype=filetype,
+        )
+
+        data_file_info_response.additional_properties = d
+        return data_file_info_response
 
     @property
     def additional_keys(self) -> list[str]:

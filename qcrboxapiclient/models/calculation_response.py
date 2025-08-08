@@ -7,14 +7,14 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.calculation_nats_response_model_arguments import CalculationNatsResponseModelArguments
+    from ..models.calculation_response_command_arguments import CalculationResponseCommandArguments
 
 
-T = TypeVar("T", bound="CalculationNatsResponseModel")
+T = TypeVar("T", bound="CalculationResponse")
 
 
 @_attrs_define
-class CalculationNatsResponseModel:
+class CalculationResponse:
     """
     Attributes:
         calculation_id (str):
@@ -22,7 +22,7 @@ class CalculationNatsResponseModel:
         application_slug (str):
         application_version (str):
         command_name (str):
-        arguments (CalculationNatsResponseModelArguments):
+        command_arguments (CalculationResponseCommandArguments):
         status (str):
         output_dataset_id (Union[None, Unset, str]):
     """
@@ -32,7 +32,7 @@ class CalculationNatsResponseModel:
     application_slug: str
     application_version: str
     command_name: str
-    arguments: "CalculationNatsResponseModelArguments"
+    command_arguments: "CalculationResponseCommandArguments"
     status: str
     output_dataset_id: Union[None, Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -48,7 +48,7 @@ class CalculationNatsResponseModel:
 
         command_name = self.command_name
 
-        arguments = self.arguments.to_dict()
+        command_arguments = self.command_arguments.to_dict()
 
         status = self.status
 
@@ -67,7 +67,7 @@ class CalculationNatsResponseModel:
                 "application_slug": application_slug,
                 "application_version": application_version,
                 "command_name": command_name,
-                "arguments": arguments,
+                "command_arguments": command_arguments,
                 "status": status,
             }
         )
@@ -78,7 +78,7 @@ class CalculationNatsResponseModel:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.calculation_nats_response_model_arguments import CalculationNatsResponseModelArguments
+        from ..models.calculation_response_command_arguments import CalculationResponseCommandArguments
 
         d = dict(src_dict)
         calculation_id = d.pop("calculation_id")
@@ -91,7 +91,7 @@ class CalculationNatsResponseModel:
 
         command_name = d.pop("command_name")
 
-        arguments = CalculationNatsResponseModelArguments.from_dict(d.pop("arguments"))
+        command_arguments = CalculationResponseCommandArguments.from_dict(d.pop("command_arguments"))
 
         status = d.pop("status")
 
@@ -104,19 +104,19 @@ class CalculationNatsResponseModel:
 
         output_dataset_id = _parse_output_dataset_id(d.pop("output_dataset_id", UNSET))
 
-        calculation_nats_response_model = cls(
+        calculation_response = cls(
             calculation_id=calculation_id,
             client_private_inbox=client_private_inbox,
             application_slug=application_slug,
             application_version=application_version,
             command_name=command_name,
-            arguments=arguments,
+            command_arguments=command_arguments,
             status=status,
             output_dataset_id=output_dataset_id,
         )
 
-        calculation_nats_response_model.additional_properties = d
-        return calculation_nats_response_model
+        calculation_response.additional_properties = d
+        return calculation_response
 
     @property
     def additional_keys(self) -> list[str]:

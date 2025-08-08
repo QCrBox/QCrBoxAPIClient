@@ -5,26 +5,26 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.stopped_calculation_response import StoppedCalculationResponse
+    from ..models.calculation_stopped_response import CalculationStoppedResponse
 
 
-T = TypeVar("T", bound="QCrBoxResponseStoppedCalculationResponse")
+T = TypeVar("T", bound="QCrBoxResponseCalculationStoppedResponse")
 
 
 @_attrs_define
-class QCrBoxResponseStoppedCalculationResponse:
+class QCrBoxResponseCalculationStoppedResponse:
     """
     Attributes:
         status (str):
         message (str):
         timestamp (str):
-        payload (StoppedCalculationResponse):
+        payload (CalculationStoppedResponse):
     """
 
     status: str
     message: str
     timestamp: str
-    payload: "StoppedCalculationResponse"
+    payload: "CalculationStoppedResponse"
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -51,7 +51,7 @@ class QCrBoxResponseStoppedCalculationResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.stopped_calculation_response import StoppedCalculationResponse
+        from ..models.calculation_stopped_response import CalculationStoppedResponse
 
         d = dict(src_dict)
         status = d.pop("status")
@@ -60,17 +60,17 @@ class QCrBoxResponseStoppedCalculationResponse:
 
         timestamp = d.pop("timestamp")
 
-        payload = StoppedCalculationResponse.from_dict(d.pop("payload"))
+        payload = CalculationStoppedResponse.from_dict(d.pop("payload"))
 
-        q_cr_box_response_stopped_calculation_response = cls(
+        q_cr_box_response_calculation_stopped_response = cls(
             status=status,
             message=message,
             timestamp=timestamp,
             payload=payload,
         )
 
-        q_cr_box_response_stopped_calculation_response.additional_properties = d
-        return q_cr_box_response_stopped_calculation_response
+        q_cr_box_response_calculation_stopped_response.additional_properties = d
+        return q_cr_box_response_calculation_stopped_response
 
     @property
     def additional_keys(self) -> list[str]:

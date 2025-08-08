@@ -11,7 +11,7 @@ from qcrboxapiclient.client import Client
 from qcrboxapiclient.models import (
     CreateDatasetBody,
     InvokeCommandParameters,
-    InvokeCommandParametersArguments,
+    InvokeCommandParametersCommandArguments,
     QCrBoxErrorResponse,
     QCrBoxResponseCalculationsResponse,
 )
@@ -47,10 +47,10 @@ data_file_id = response.payload.datasets[0].data_files[test_file.name].qcrbox_fi
 
 # To invoke a non-interactive command, we need to create objects which represent
 # the JSON data sent in the request to the API
-arguments = InvokeCommandParametersArguments.from_dict(
-    {"input_cif": {"data_file_id": data_file_id}, "output_cif_path": "/opt/qcrbox/test_unified_cif.cif"}
+arguments = InvokeCommandParametersCommandArguments.from_dict(
+    {"input_cif": {"data_file_id": data_file_id}, "print_times": 3}
 )
-create_session = InvokeCommandParameters("qcrboxtools", "0.0.5", "to_unified_cif", arguments)
+create_session = InvokeCommandParameters("dummy_cli", "0.1.0", "print_cif", arguments)
 
 # Send the request to the API
 response = invoke_command.sync(client=client, body=create_session)

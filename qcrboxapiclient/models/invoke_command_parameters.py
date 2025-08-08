@@ -5,7 +5,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.invoke_command_parameters_arguments import InvokeCommandParametersArguments
+    from ..models.invoke_command_parameters_command_arguments import InvokeCommandParametersCommandArguments
 
 
 T = TypeVar("T", bound="InvokeCommandParameters")
@@ -18,13 +18,13 @@ class InvokeCommandParameters:
         application_slug (str):
         application_version (str):
         command_name (str):
-        arguments (InvokeCommandParametersArguments):
+        command_arguments (InvokeCommandParametersCommandArguments):
     """
 
     application_slug: str
     application_version: str
     command_name: str
-    arguments: "InvokeCommandParametersArguments"
+    command_arguments: "InvokeCommandParametersCommandArguments"
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,7 +34,7 @@ class InvokeCommandParameters:
 
         command_name = self.command_name
 
-        arguments = self.arguments.to_dict()
+        command_arguments = self.command_arguments.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -43,7 +43,7 @@ class InvokeCommandParameters:
                 "application_slug": application_slug,
                 "application_version": application_version,
                 "command_name": command_name,
-                "arguments": arguments,
+                "command_arguments": command_arguments,
             }
         )
 
@@ -51,7 +51,7 @@ class InvokeCommandParameters:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.invoke_command_parameters_arguments import InvokeCommandParametersArguments
+        from ..models.invoke_command_parameters_command_arguments import InvokeCommandParametersCommandArguments
 
         d = dict(src_dict)
         application_slug = d.pop("application_slug")
@@ -60,13 +60,13 @@ class InvokeCommandParameters:
 
         command_name = d.pop("command_name")
 
-        arguments = InvokeCommandParametersArguments.from_dict(d.pop("arguments"))
+        command_arguments = InvokeCommandParametersCommandArguments.from_dict(d.pop("command_arguments"))
 
         invoke_command_parameters = cls(
             application_slug=application_slug,
             application_version=application_version,
             command_name=command_name,
-            arguments=arguments,
+            command_arguments=command_arguments,
         )
 
         invoke_command_parameters.additional_properties = d

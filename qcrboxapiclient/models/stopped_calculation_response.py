@@ -1,12 +1,10 @@
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-if TYPE_CHECKING:
-    from ..models.stopped_calculation_response_msg import StoppedCalculationResponseMsg
-
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="StoppedCalculationResponse")
 
@@ -15,42 +13,80 @@ T = TypeVar("T", bound="StoppedCalculationResponse")
 class StoppedCalculationResponse:
     """
     Attributes:
-        calculations (list['StoppedCalculationResponseMsg']):
+        calculation_id (str):
+        status (str):
+        output_dataset_id (Union[None, Unset, str]):
+        error_msg (Union[None, Unset, str]):
     """
 
-    calculations: list["StoppedCalculationResponseMsg"]
+    calculation_id: str
+    status: str
+    output_dataset_id: Union[None, Unset, str] = UNSET
+    error_msg: Union[None, Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        calculations = []
-        for calculations_item_data in self.calculations:
-            calculations_item = calculations_item_data.to_dict()
-            calculations.append(calculations_item)
+        calculation_id = self.calculation_id
+
+        status = self.status
+
+        output_dataset_id: Union[None, Unset, str]
+        if isinstance(self.output_dataset_id, Unset):
+            output_dataset_id = UNSET
+        else:
+            output_dataset_id = self.output_dataset_id
+
+        error_msg: Union[None, Unset, str]
+        if isinstance(self.error_msg, Unset):
+            error_msg = UNSET
+        else:
+            error_msg = self.error_msg
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "calculations": calculations,
+                "calculation_id": calculation_id,
+                "status": status,
             }
         )
+        if output_dataset_id is not UNSET:
+            field_dict["output_dataset_id"] = output_dataset_id
+        if error_msg is not UNSET:
+            field_dict["error_msg"] = error_msg
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.stopped_calculation_response_msg import StoppedCalculationResponseMsg
-
         d = dict(src_dict)
-        calculations = []
-        _calculations = d.pop("calculations")
-        for calculations_item_data in _calculations:
-            calculations_item = StoppedCalculationResponseMsg.from_dict(calculations_item_data)
+        calculation_id = d.pop("calculation_id")
 
-            calculations.append(calculations_item)
+        status = d.pop("status")
+
+        def _parse_output_dataset_id(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        output_dataset_id = _parse_output_dataset_id(d.pop("output_dataset_id", UNSET))
+
+        def _parse_error_msg(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        error_msg = _parse_error_msg(d.pop("error_msg", UNSET))
 
         stopped_calculation_response = cls(
-            calculations=calculations,
+            calculation_id=calculation_id,
+            status=status,
+            output_dataset_id=output_dataset_id,
+            error_msg=error_msg,
         )
 
         stopped_calculation_response.additional_properties = d

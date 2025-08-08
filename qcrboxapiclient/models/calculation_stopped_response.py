@@ -5,35 +5,33 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.dataset_response_data_files import DatasetResponseDataFiles
+    from ..models.stopped_calculation_response import StoppedCalculationResponse
 
 
-T = TypeVar("T", bound="DatasetResponse")
+T = TypeVar("T", bound="CalculationStoppedResponse")
 
 
 @_attrs_define
-class DatasetResponse:
+class CalculationStoppedResponse:
     """
     Attributes:
-        qcrbox_dataset_id (str):
-        data_files (DatasetResponseDataFiles):
+        calculations (list['StoppedCalculationResponse']):
     """
 
-    qcrbox_dataset_id: str
-    data_files: "DatasetResponseDataFiles"
+    calculations: list["StoppedCalculationResponse"]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        qcrbox_dataset_id = self.qcrbox_dataset_id
-
-        data_files = self.data_files.to_dict()
+        calculations = []
+        for calculations_item_data in self.calculations:
+            calculations_item = calculations_item_data.to_dict()
+            calculations.append(calculations_item)
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "qcrbox_dataset_id": qcrbox_dataset_id,
-                "data_files": data_files,
+                "calculations": calculations,
             }
         )
 
@@ -41,20 +39,22 @@ class DatasetResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.dataset_response_data_files import DatasetResponseDataFiles
+        from ..models.stopped_calculation_response import StoppedCalculationResponse
 
         d = dict(src_dict)
-        qcrbox_dataset_id = d.pop("qcrbox_dataset_id")
+        calculations = []
+        _calculations = d.pop("calculations")
+        for calculations_item_data in _calculations:
+            calculations_item = StoppedCalculationResponse.from_dict(calculations_item_data)
 
-        data_files = DatasetResponseDataFiles.from_dict(d.pop("data_files"))
+            calculations.append(calculations_item)
 
-        dataset_response = cls(
-            qcrbox_dataset_id=qcrbox_dataset_id,
-            data_files=data_files,
+        calculation_stopped_response = cls(
+            calculations=calculations,
         )
 
-        dataset_response.additional_properties = d
-        return dataset_response
+        calculation_stopped_response.additional_properties = d
+        return calculation_stopped_response
 
     @property
     def additional_keys(self) -> list[str]:

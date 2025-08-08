@@ -38,7 +38,7 @@ Check list_interactive_sessions returns a list of sessions
 Check create_interactive_session_with_arguments can create an interactive session
     ${input_file}=    Create Dictionary    data_file_id=${TEST_DATA_FILE_ID}
     ${arguments}=    Create Dictionary    input_file=${input_file}
-    ${create_body}=    Create Interactive Session Create Body    olex2    1.5-alpha    ${arguments}
+    ${create_body}=    Create Interactive Session Create Body    dummy_gui    0.1.0    ${arguments}
 
     ${response}=    Create Interactive Session With Arguments    ${API_CLIENT}    ${create_body}
     Check For Error Response    ${response}
