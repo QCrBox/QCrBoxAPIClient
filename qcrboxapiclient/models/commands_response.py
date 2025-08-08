@@ -5,7 +5,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.command_spec_with_parameters import CommandSpecWithParameters
+    from ..models.command_spec_with_parameters_response import CommandSpecWithParametersResponse
 
 
 T = TypeVar("T", bound="CommandsResponse")
@@ -15,10 +15,10 @@ T = TypeVar("T", bound="CommandsResponse")
 class CommandsResponse:
     """
     Attributes:
-        commands (list['CommandSpecWithParameters']):
+        commands (list['CommandSpecWithParametersResponse']):
     """
 
-    commands: list["CommandSpecWithParameters"]
+    commands: list["CommandSpecWithParametersResponse"]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,13 +39,13 @@ class CommandsResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.command_spec_with_parameters import CommandSpecWithParameters
+        from ..models.command_spec_with_parameters_response import CommandSpecWithParametersResponse
 
         d = dict(src_dict)
         commands = []
         _commands = d.pop("commands")
         for commands_item_data in _commands:
-            commands_item = CommandSpecWithParameters.from_dict(commands_item_data)
+            commands_item = CommandSpecWithParametersResponse.from_dict(commands_item_data)
 
             commands.append(commands_item)
 

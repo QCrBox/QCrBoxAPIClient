@@ -4,11 +4,11 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="CommandSpecWithParametersParameters")
+T = TypeVar("T", bound="CalculationResponseCommandArguments")
 
 
 @_attrs_define
-class CommandSpecWithParametersParameters:
+class CalculationResponseCommandArguments:
     """ """
 
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -22,10 +22,10 @@ class CommandSpecWithParametersParameters:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        command_spec_with_parameters_parameters = cls()
+        calculation_response_command_arguments = cls()
 
-        command_spec_with_parameters_parameters.additional_properties = d
-        return command_spec_with_parameters_parameters
+        calculation_response_command_arguments.additional_properties = d
+        return calculation_response_command_arguments
 
     @property
     def additional_keys(self) -> list[str]:

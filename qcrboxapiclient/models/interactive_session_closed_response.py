@@ -5,7 +5,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.close_interactive_session_response_nats import CloseInteractiveSessionResponseNATS
+    from ..models.close_interactive_session_response import CloseInteractiveSessionResponse
 
 
 T = TypeVar("T", bound="InteractiveSessionClosedResponse")
@@ -15,10 +15,10 @@ T = TypeVar("T", bound="InteractiveSessionClosedResponse")
 class InteractiveSessionClosedResponse:
     """
     Attributes:
-        interactive_sessions (list['CloseInteractiveSessionResponseNATS']):
+        interactive_sessions (list['CloseInteractiveSessionResponse']):
     """
 
-    interactive_sessions: list["CloseInteractiveSessionResponseNATS"]
+    interactive_sessions: list["CloseInteractiveSessionResponse"]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,13 +39,13 @@ class InteractiveSessionClosedResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.close_interactive_session_response_nats import CloseInteractiveSessionResponseNATS
+        from ..models.close_interactive_session_response import CloseInteractiveSessionResponse
 
         d = dict(src_dict)
         interactive_sessions = []
         _interactive_sessions = d.pop("interactive_sessions")
         for interactive_sessions_item_data in _interactive_sessions:
-            interactive_sessions_item = CloseInteractiveSessionResponseNATS.from_dict(interactive_sessions_item_data)
+            interactive_sessions_item = CloseInteractiveSessionResponse.from_dict(interactive_sessions_item_data)
 
             interactive_sessions.append(interactive_sessions_item)
 

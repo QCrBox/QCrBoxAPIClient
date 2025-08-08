@@ -5,17 +5,17 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.data_file_metadata_response import DataFileMetadataResponse
+    from ..models.data_file_info_response import DataFileInfoResponse
 
 
-T = TypeVar("T", bound="DatasetResponseDataFiles")
+T = TypeVar("T", bound="DatasetInfoResponseDataFiles")
 
 
 @_attrs_define
-class DatasetResponseDataFiles:
+class DatasetInfoResponseDataFiles:
     """ """
 
-    additional_properties: dict[str, "DataFileMetadataResponse"] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, "DataFileInfoResponse"] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         field_dict: dict[str, Any] = {}
@@ -26,28 +26,28 @@ class DatasetResponseDataFiles:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.data_file_metadata_response import DataFileMetadataResponse
+        from ..models.data_file_info_response import DataFileInfoResponse
 
         d = dict(src_dict)
-        dataset_response_data_files = cls()
+        dataset_info_response_data_files = cls()
 
         additional_properties = {}
         for prop_name, prop_dict in d.items():
-            additional_property = DataFileMetadataResponse.from_dict(prop_dict)
+            additional_property = DataFileInfoResponse.from_dict(prop_dict)
 
             additional_properties[prop_name] = additional_property
 
-        dataset_response_data_files.additional_properties = additional_properties
-        return dataset_response_data_files
+        dataset_info_response_data_files.additional_properties = additional_properties
+        return dataset_info_response_data_files
 
     @property
     def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
-    def __getitem__(self, key: str) -> "DataFileMetadataResponse":
+    def __getitem__(self, key: str) -> "DataFileInfoResponse":
         return self.additional_properties[key]
 
-    def __setitem__(self, key: str, value: "DataFileMetadataResponse") -> None:
+    def __setitem__(self, key: str, value: "DataFileInfoResponse") -> None:
         self.additional_properties[key] = value
 
     def __delitem__(self, key: str) -> None:

@@ -16,13 +16,13 @@ import time
 from qcrboxapiclient.api.datasets import create_dataset, delete_dataset_by_id
 from qcrboxapiclient.api.interactive_sessions import (
     close_interactive_session,
-    create_interactive_session_with_arguments,
+    create_interactive_session,
 )
 from qcrboxapiclient.client import Client
 from qcrboxapiclient.models import (
     CreateDatasetBody,
-    CreateInteractiveSession,
-    CreateInteractiveSessionArguments,
+    CreateInteractiveSessionParameters,
+    CreateInteractiveSessionParametersCommandArguments,
     QCrBoxErrorResponse,
 )
 from qcrboxapiclient.types import File
@@ -45,7 +45,7 @@ upload_payload = CreateDatasetBody(file)
 # Assuming everything went OK, thn we will get a QCrBoxResponse. If an error
 # occurred then the response is of type QCrBoxErrorResponse
 response = create_dataset.sync(client=client, body=upload_payload)
-if isinstance(response, QCrBoxErrorResponse):
+if isinstance(response, QCrBoxErrorResponse) or response is None:
     raise TypeError("Failed to upload file")
 else:
     print("Created dataset:", response)
@@ -61,10 +61,10 @@ data_file_id = response.payload.datasets[0].data_files[test_file.name].qcrbox_fi
 # command. For olex2, we need an argument named "input_file" which contains a data_file_id.
 # Note that the arguments is a dict and we use `CreateInteractiveSessionArguments` to
 # marshal out input into Json for the API
-arguments = CreateInteractiveSessionArguments.from_dict({"input_file": {"data_file_id": data_file_id}})
-create_session = CreateInteractiveSession("olex2", "1.5-alpha", arguments)
-response = create_interactive_session_with_arguments.sync(client=client, body=create_session)
-if isinstance(response, QCrBoxErrorResponse):
+arguments = CreateInteractiveSessionParametersCommandArguments.from_dict({"input_file": {"data_file_id": data_file_id}})
+create_session = CreateInteractiveSessionParameters("olex2", "1.5-alpha", arguments)
+response = create_interactive_session.sync(client=client, body=create_session)
+if isinstance(response, QCrBoxErrorResponse) or response is None:
     raise TypeError("Failed to start interactive session")
 else:
     print("Created interactive session:", response)

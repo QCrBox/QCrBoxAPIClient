@@ -4,23 +4,23 @@ from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.command_spec_with_parameters_implemented_as import CommandSpecWithParametersImplementedAs
+from ..models.command_spec_with_parameters_response_implemented_as import CommandSpecWithParametersResponseImplementedAs
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.command_spec_with_parameters_parameters import CommandSpecWithParametersParameters
+    from ..models.command_spec_with_parameters_response_parameters import CommandSpecWithParametersResponseParameters
 
 
-T = TypeVar("T", bound="CommandSpecWithParameters")
+T = TypeVar("T", bound="CommandSpecWithParametersResponse")
 
 
 @_attrs_define
-class CommandSpecWithParameters:
+class CommandSpecWithParametersResponse:
     """
     Attributes:
         name (str):
-        implemented_as (CommandSpecWithParametersImplementedAs):
-        parameters (CommandSpecWithParametersParameters):
+        implemented_as (CommandSpecWithParametersResponseImplementedAs):
+        parameters (CommandSpecWithParametersResponseParameters):
         id (int):
         application_id (int):
         application (str):
@@ -32,8 +32,8 @@ class CommandSpecWithParameters:
     """
 
     name: str
-    implemented_as: CommandSpecWithParametersImplementedAs
-    parameters: "CommandSpecWithParametersParameters"
+    implemented_as: CommandSpecWithParametersResponseImplementedAs
+    parameters: "CommandSpecWithParametersResponseParameters"
     id: int
     application_id: int
     application: str
@@ -96,14 +96,16 @@ class CommandSpecWithParameters:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.command_spec_with_parameters_parameters import CommandSpecWithParametersParameters
+        from ..models.command_spec_with_parameters_response_parameters import (
+            CommandSpecWithParametersResponseParameters,
+        )
 
         d = dict(src_dict)
         name = d.pop("name")
 
-        implemented_as = CommandSpecWithParametersImplementedAs(d.pop("implemented_as"))
+        implemented_as = CommandSpecWithParametersResponseImplementedAs(d.pop("implemented_as"))
 
-        parameters = CommandSpecWithParametersParameters.from_dict(d.pop("parameters"))
+        parameters = CommandSpecWithParametersResponseParameters.from_dict(d.pop("parameters"))
 
         id = d.pop("id")
 
@@ -128,7 +130,7 @@ class CommandSpecWithParameters:
 
         doi = _parse_doi(d.pop("doi", UNSET))
 
-        command_spec_with_parameters = cls(
+        command_spec_with_parameters_response = cls(
             name=name,
             implemented_as=implemented_as,
             parameters=parameters,
@@ -142,8 +144,8 @@ class CommandSpecWithParameters:
             doi=doi,
         )
 
-        command_spec_with_parameters.additional_properties = d
-        return command_spec_with_parameters
+        command_spec_with_parameters_response.additional_properties = d
+        return command_spec_with_parameters_response
 
     @property
     def additional_keys(self) -> list[str]:

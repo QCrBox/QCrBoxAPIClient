@@ -5,6 +5,7 @@ Documentation
 # Resources -- implemented in Robot
 Resource            resources/keywords.resource
 Library    libraries/endpoints/commands.py
+Library    libraries/endpoints/datasets.py
 
 Suite Setup         Setup suite
 Suite Teardown      Teardown suite
@@ -16,6 +17,10 @@ ${REGISTRY_PORT}        %{QCRBOX_REGISTRY_PORT=11000}
 ${API_BASE_URL}         http://${REGISTRY_ADDRESS}:${REGISTRY_PORT}
 ${API_CLIENT}           ${EMPTY}
 ${COMMAND_ID}           ${EMPTY}
+${TEST_FILE_PATH}       test_data/api_client_test_cif.cif
+${TEST_FILE_NAME}       api_client_test_cif.cif
+${TEST_DATASET_ID}      ${EMPTY}
+${TEST_DATA_FILE_ID}    ${EMPTY}
 
 
 *** Test Cases ***
@@ -53,9 +58,24 @@ Setup suite
     ${client}=    Create API Client    ${API_BASE_URL}
     Set Suite Variable    ${API_CLIENT}    ${client}
 
+    ${file_upload}=    Upload Test Dataset
+    Set Suite Variable    ${TEST_DATASET_ID}    ${file_upload[0]}
+    Set Suite Variable    ${TEST_DATA_FILE_ID}    ${file_upload[1]}
+
 Teardown suite
+    Delete Test Dataset
     Log datetime information
     Log    Test suite completed
+
+Upload Test Dataset
+    ${body}=    Create File Upload Body    ${TEST_FILE_PATH}
+    ${response}=    Create Dataset    ${API_CLIENT}    ${body}
+    ${dataset}=    Set Variable    ${response.payload.datasets[0]}
+    ${data_file}=    Set Variable    ${dataset.data_files['${TEST_FILE_NAME}']}
+    RETURN    ${dataset.qcrbox_dataset_id}    ${data_file.qcrbox_file_id}
+
+Delete Test Dataset
+    Delete Dataset By Id    ${API_CLIENT}    ${TEST_DATASET_ID}
 
 Check Commands Structure
     [Arguments]    @{commands}

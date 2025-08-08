@@ -5,7 +5,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.create_interactive_session import CreateInteractiveSession
+from ...models.create_interactive_session_parameters import CreateInteractiveSessionParameters
 from ...models.q_cr_box_error_response import QCrBoxErrorResponse
 from ...models.q_cr_box_response_interactive_session_id_response import QCrBoxResponseInteractiveSessionIDResponse
 from ...types import Response
@@ -13,7 +13,7 @@ from ...types import Response
 
 def _get_kwargs(
     *,
-    body: CreateInteractiveSession,
+    body: CreateInteractiveSessionParameters,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -66,14 +66,14 @@ def _build_response(
 def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: CreateInteractiveSession,
+    body: CreateInteractiveSessionParameters,
 ) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseInteractiveSessionIDResponse]]:
     """Create interactive session
 
      Create an interactive session with the provided arguments arguments.
 
     Args:
-        body (CreateInteractiveSession):
+        body (CreateInteractiveSessionParameters):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -97,14 +97,14 @@ def sync_detailed(
 def sync(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: CreateInteractiveSession,
+    body: CreateInteractiveSessionParameters,
 ) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseInteractiveSessionIDResponse]]:
     """Create interactive session
 
      Create an interactive session with the provided arguments arguments.
 
     Args:
-        body (CreateInteractiveSession):
+        body (CreateInteractiveSessionParameters):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -123,14 +123,14 @@ def sync(
 async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: CreateInteractiveSession,
+    body: CreateInteractiveSessionParameters,
 ) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseInteractiveSessionIDResponse]]:
     """Create interactive session
 
      Create an interactive session with the provided arguments arguments.
 
     Args:
-        body (CreateInteractiveSession):
+        body (CreateInteractiveSessionParameters):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -152,14 +152,14 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
-    body: CreateInteractiveSession,
+    body: CreateInteractiveSessionParameters,
 ) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseInteractiveSessionIDResponse]]:
     """Create interactive session
 
      Create an interactive session with the provided arguments arguments.
 
     Args:
-        body (CreateInteractiveSession):
+        body (CreateInteractiveSessionParameters):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

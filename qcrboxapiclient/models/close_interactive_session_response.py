@@ -6,11 +6,11 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="CloseInteractiveSessionResponseNATS")
+T = TypeVar("T", bound="CloseInteractiveSessionResponse")
 
 
 @_attrs_define
-class CloseInteractiveSessionResponseNATS:
+class CloseInteractiveSessionResponse:
     """
     Attributes:
         session_id (str):
@@ -82,15 +82,15 @@ class CloseInteractiveSessionResponseNATS:
 
         error_msg = _parse_error_msg(d.pop("error_msg", UNSET))
 
-        close_interactive_session_response_nats = cls(
+        close_interactive_session_response = cls(
             session_id=session_id,
             status=status,
             output_dataset_id=output_dataset_id,
             error_msg=error_msg,
         )
 
-        close_interactive_session_response_nats.additional_properties = d
-        return close_interactive_session_response_nats
+        close_interactive_session_response.additional_properties = d
+        return close_interactive_session_response
 
     @property
     def additional_keys(self) -> list[str]:

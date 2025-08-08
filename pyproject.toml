@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "QCrBoxAPIClient"
-version = "0.2.2"
+version = "0.3.0"
 description = "A client library for accessing QCrBox"
 authors = []
 readme = "README.md"
@@ -25,7 +25,6 @@ robotframework = "^7.2.2"
 robotframework-tidy = "^4.17.0"
 openapi-python-client = "^0.24.3"
 coverage = "^7.9.2"
-coverage-badge = "^1.1.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

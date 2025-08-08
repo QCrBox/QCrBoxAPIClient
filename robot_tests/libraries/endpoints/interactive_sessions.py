@@ -1,5 +1,5 @@
 from qcrboxapiclient.client import Client
-from qcrboxapiclient.models.create_interactive_session import CreateInteractiveSession
+from qcrboxapiclient.models.create_interactive_session_parameters import CreateInteractiveSessionParameters
 from qcrboxapiclient.models.q_cr_box_error_response import QCrBoxErrorResponse
 from qcrboxapiclient.models.q_cr_box_response_interactive_session_closed_response import (
     QCrBoxResponseInteractiveSessionClosedResponse,
@@ -14,29 +14,29 @@ from qcrboxapiclient.models.q_cr_box_response_interactive_sessions_response impo
 
 def close_interactive_session(
     client: Client, id: str
-) -> QCrBoxResponseInteractiveSessionClosedResponse | QCrBoxErrorResponse:
+) -> QCrBoxResponseInteractiveSessionClosedResponse | QCrBoxErrorResponse | None:
     from qcrboxapiclient.api.interactive_sessions import close_interactive_session
 
     return close_interactive_session.sync(id=id, client=client)
 
 
 def create_interactive_session_with_arguments(
-    client: Client, body: CreateInteractiveSession
-) -> QCrBoxResponseInteractiveSessionIDResponse | QCrBoxErrorResponse:
-    from qcrboxapiclient.api.interactive_sessions import create_interactive_session_with_arguments
+    client: Client, body: CreateInteractiveSessionParameters
+) -> QCrBoxResponseInteractiveSessionIDResponse | QCrBoxErrorResponse | None:
+    from qcrboxapiclient.api.interactive_sessions import create_interactive_session
 
-    return create_interactive_session_with_arguments.sync(client=client, body=body)
+    return create_interactive_session.sync(client=client, body=body)
 
 
 def get_interactive_session_by_id(
     client: Client, id: str
-) -> QCrBoxResponseInteractiveSessionsResponse | QCrBoxErrorResponse:
+) -> QCrBoxResponseInteractiveSessionsResponse | QCrBoxErrorResponse | None:
     from qcrboxapiclient.api.interactive_sessions import get_interactive_session_by_id
 
     return get_interactive_session_by_id.sync(id=id, client=client)
 
 
-def list_interactive_sessions(client: Client) -> QCrBoxResponseInteractiveSessionsResponse | QCrBoxErrorResponse:
+def list_interactive_sessions(client: Client) -> QCrBoxResponseInteractiveSessionsResponse | QCrBoxErrorResponse | None:
     from qcrboxapiclient.api.interactive_sessions import list_interactive_sessions
 
     return list_interactive_sessions.sync(client=client)

@@ -9,14 +9,14 @@ from dateutil.parser import isoparse
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.command_spec_with_parameters import CommandSpecWithParameters
+    from ..models.command_spec_with_parameters_response import CommandSpecWithParametersResponse
 
 
-T = TypeVar("T", bound="ApplicationSpecWithCommands")
+T = TypeVar("T", bound="ApplicationSpecWithCommandsResponse")
 
 
 @_attrs_define
-class ApplicationSpecWithCommands:
+class ApplicationSpecWithCommandsResponse:
     """
     Attributes:
         name (str):
@@ -24,7 +24,7 @@ class ApplicationSpecWithCommands:
         version (str):
         id (int):
         registered_at (datetime.datetime):
-        commands (list['CommandSpecWithParameters']):
+        commands (list['CommandSpecWithParametersResponse']):
         description (Union[None, Unset, str]):
         url (Union[None, Unset, str]):
         email (Union[None, Unset, str]):
@@ -38,7 +38,7 @@ class ApplicationSpecWithCommands:
     version: str
     id: int
     registered_at: datetime.datetime
-    commands: list["CommandSpecWithParameters"]
+    commands: list["CommandSpecWithParametersResponse"]
     description: Union[None, Unset, str] = UNSET
     url: Union[None, Unset, str] = UNSET
     email: Union[None, Unset, str] = UNSET
@@ -128,7 +128,7 @@ class ApplicationSpecWithCommands:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.command_spec_with_parameters import CommandSpecWithParameters
+        from ..models.command_spec_with_parameters_response import CommandSpecWithParametersResponse
 
         d = dict(src_dict)
         name = d.pop("name")
@@ -144,7 +144,7 @@ class ApplicationSpecWithCommands:
         commands = []
         _commands = d.pop("commands")
         for commands_item_data in _commands:
-            commands_item = CommandSpecWithParameters.from_dict(commands_item_data)
+            commands_item = CommandSpecWithParametersResponse.from_dict(commands_item_data)
 
             commands.append(commands_item)
 
@@ -202,7 +202,7 @@ class ApplicationSpecWithCommands:
 
         gui_port = _parse_gui_port(d.pop("gui_port", UNSET))
 
-        application_spec_with_commands = cls(
+        application_spec_with_commands_response = cls(
             name=name,
             slug=slug,
             version=version,
@@ -217,8 +217,8 @@ class ApplicationSpecWithCommands:
             gui_port=gui_port,
         )
 
-        application_spec_with_commands.additional_properties = d
-        return application_spec_with_commands
+        application_spec_with_commands_response.additional_properties = d
+        return application_spec_with_commands_response
 
     @property
     def additional_keys(self) -> list[str]:
