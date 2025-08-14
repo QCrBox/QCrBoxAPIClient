@@ -1,37 +1,30 @@
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-if TYPE_CHECKING:
-    from ..models.calculation_response import CalculationResponse
-
-
-T = TypeVar("T", bound="CalculationsResponse")
+T = TypeVar("T", bound="InvokeCommandResponse")
 
 
 @_attrs_define
-class CalculationsResponse:
+class InvokeCommandResponse:
     """
     Attributes:
-        calculations (list['CalculationResponse']):
+        calculation_id (str):
     """
 
-    calculations: list["CalculationResponse"]
+    calculation_id: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        calculations = []
-        for calculations_item_data in self.calculations:
-            calculations_item = calculations_item_data.to_dict()
-            calculations.append(calculations_item)
+        calculation_id = self.calculation_id
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "calculations": calculations,
+                "calculation_id": calculation_id,
             }
         )
 
@@ -39,22 +32,15 @@ class CalculationsResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.calculation_response import CalculationResponse
-
         d = dict(src_dict)
-        calculations = []
-        _calculations = d.pop("calculations")
-        for calculations_item_data in _calculations:
-            calculations_item = CalculationResponse.from_dict(calculations_item_data)
+        calculation_id = d.pop("calculation_id")
 
-            calculations.append(calculations_item)
-
-        calculations_response = cls(
-            calculations=calculations,
+        invoke_command_response = cls(
+            calculation_id=calculation_id,
         )
 
-        calculations_response.additional_properties = d
-        return calculations_response
+        invoke_command_response.additional_properties = d
+        return invoke_command_response
 
     @property
     def additional_keys(self) -> list[str]:

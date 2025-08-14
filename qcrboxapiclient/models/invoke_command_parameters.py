@@ -5,55 +5,45 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.calculation_nats_response_model_arguments import CalculationNatsResponseModelArguments
+    from ..models.invoke_command_parameters_command_arguments import InvokeCommandParametersCommandArguments
 
 
-T = TypeVar("T", bound="CalculationNatsResponseModel")
+T = TypeVar("T", bound="InvokeCommandParameters")
 
 
 @_attrs_define
-class CalculationNatsResponseModel:
+class InvokeCommandParameters:
     """
     Attributes:
-        calculation_id (str):
         application_slug (str):
         application_version (str):
         command_name (str):
-        arguments (CalculationNatsResponseModelArguments):
-        status (str):
+        command_arguments (InvokeCommandParametersCommandArguments):
     """
 
-    calculation_id: str
     application_slug: str
     application_version: str
     command_name: str
-    arguments: "CalculationNatsResponseModelArguments"
-    status: str
+    command_arguments: "InvokeCommandParametersCommandArguments"
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        calculation_id = self.calculation_id
-
         application_slug = self.application_slug
 
         application_version = self.application_version
 
         command_name = self.command_name
 
-        arguments = self.arguments.to_dict()
-
-        status = self.status
+        command_arguments = self.command_arguments.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "calculation_id": calculation_id,
                 "application_slug": application_slug,
                 "application_version": application_version,
                 "command_name": command_name,
-                "arguments": arguments,
-                "status": status,
+                "command_arguments": command_arguments,
             }
         )
 
@@ -61,32 +51,26 @@ class CalculationNatsResponseModel:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.calculation_nats_response_model_arguments import CalculationNatsResponseModelArguments
+        from ..models.invoke_command_parameters_command_arguments import InvokeCommandParametersCommandArguments
 
         d = dict(src_dict)
-        calculation_id = d.pop("calculation_id")
-
         application_slug = d.pop("application_slug")
 
         application_version = d.pop("application_version")
 
         command_name = d.pop("command_name")
 
-        arguments = CalculationNatsResponseModelArguments.from_dict(d.pop("arguments"))
+        command_arguments = InvokeCommandParametersCommandArguments.from_dict(d.pop("command_arguments"))
 
-        status = d.pop("status")
-
-        calculation_nats_response_model = cls(
-            calculation_id=calculation_id,
+        invoke_command_parameters = cls(
             application_slug=application_slug,
             application_version=application_version,
             command_name=command_name,
-            arguments=arguments,
-            status=status,
+            command_arguments=command_arguments,
         )
 
-        calculation_nats_response_model.additional_properties = d
-        return calculation_nats_response_model
+        invoke_command_parameters.additional_properties = d
+        return invoke_command_parameters
 
     @property
     def additional_keys(self) -> list[str]:

@@ -76,5 +76,6 @@ Check Calculations Structure
         ...    application_version
         ...    command_name
         ...    status
-        ...    arguments
+        ...    command_arguments
+        ...    output_dataset_id
     END

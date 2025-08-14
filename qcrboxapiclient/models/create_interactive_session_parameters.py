@@ -5,24 +5,26 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.create_interactive_session_arguments import CreateInteractiveSessionArguments
+    from ..models.create_interactive_session_parameters_command_arguments import (
+        CreateInteractiveSessionParametersCommandArguments,
+    )
 
 
-T = TypeVar("T", bound="CreateInteractiveSession")
+T = TypeVar("T", bound="CreateInteractiveSessionParameters")
 
 
 @_attrs_define
-class CreateInteractiveSession:
+class CreateInteractiveSessionParameters:
     """
     Attributes:
         application_slug (str):
         application_version (str):
-        arguments (CreateInteractiveSessionArguments):
+        command_arguments (CreateInteractiveSessionParametersCommandArguments):
     """
 
     application_slug: str
     application_version: str
-    arguments: "CreateInteractiveSessionArguments"
+    command_arguments: "CreateInteractiveSessionParametersCommandArguments"
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -30,7 +32,7 @@ class CreateInteractiveSession:
 
         application_version = self.application_version
 
-        arguments = self.arguments.to_dict()
+        command_arguments = self.command_arguments.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -38,7 +40,7 @@ class CreateInteractiveSession:
             {
                 "application_slug": application_slug,
                 "application_version": application_version,
-                "arguments": arguments,
+                "command_arguments": command_arguments,
             }
         )
 
@@ -46,23 +48,25 @@ class CreateInteractiveSession:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.create_interactive_session_arguments import CreateInteractiveSessionArguments
+        from ..models.create_interactive_session_parameters_command_arguments import (
+            CreateInteractiveSessionParametersCommandArguments,
+        )
 
         d = dict(src_dict)
         application_slug = d.pop("application_slug")
 
         application_version = d.pop("application_version")
 
-        arguments = CreateInteractiveSessionArguments.from_dict(d.pop("arguments"))
+        command_arguments = CreateInteractiveSessionParametersCommandArguments.from_dict(d.pop("command_arguments"))
 
-        create_interactive_session = cls(
+        create_interactive_session_parameters = cls(
             application_slug=application_slug,
             application_version=application_version,
-            arguments=arguments,
+            command_arguments=command_arguments,
         )
 
-        create_interactive_session.additional_properties = d
-        return create_interactive_session
+        create_interactive_session_parameters.additional_properties = d
+        return create_interactive_session_parameters
 
     @property
     def additional_keys(self) -> list[str]:
