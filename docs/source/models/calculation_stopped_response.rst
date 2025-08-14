@@ -1,7 +1,7 @@
-qcrboxapiclient.models.command_spec_with_parameters
+qcrboxapiclient.models.calculation_stopped_response
 ===================================================
 
-.. automodule:: qcrboxapiclient.models.command_spec_with_parameters
+.. automodule:: qcrboxapiclient.models.calculation_stopped_response
    :members:
    :undoc-members:
    :show-inheritance:
