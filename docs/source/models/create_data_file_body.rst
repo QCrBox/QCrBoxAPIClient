@@ -1,7 +1,7 @@
-qcrboxapiclient.models.dataset_info_response
+qcrboxapiclient.models.create_data_file_body
 ============================================
 
-.. automodule:: qcrboxapiclient.models.dataset_info_response
+.. automodule:: qcrboxapiclient.models.create_data_file_body
    :members:
    :undoc-members:
    :show-inheritance:

@@ -13,14 +13,17 @@ API Reference
    commands/list_commands
    commands/invoke_command
    commands/get_command_by_id
+   data_files/delete_data_file_by_id
    data_files/download_data_file_by_id
    data_files/list_data_files
+   data_files/create_data_file
    data_files/get_data_file_by_id
    datasets/list_datasets
    datasets/delete_dataset_by_id
    datasets/get_dataset_by_id
    datasets/download_dataset_by_id
    datasets/create_dataset
+   datasets/append_to_dataset
    calculations/list_calculations
    calculations/stop_running_calculation
    calculations/get_calculation_by_id
