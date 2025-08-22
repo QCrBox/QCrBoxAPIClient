@@ -1,4 +1,5 @@
 from qcrboxapiclient.client import Client
+from qcrboxapiclient.models.append_to_dataset_body import AppendToDatasetBody
 from qcrboxapiclient.models.create_dataset_body import CreateDatasetBody
 from qcrboxapiclient.models.q_cr_box_error_response import QCrBoxErrorResponse
 from qcrboxapiclient.models.q_cr_box_response_datasets_response import QCrBoxResponseDatasetsResponse
@@ -34,3 +35,10 @@ def download_dataset_by_id(client: Client, id: str) -> bytes | str | QCrBoxError
     from qcrboxapiclient.api.datasets import download_dataset_by_id
 
     return download_dataset_by_id.sync(id=id, client=client)
+
+def append_to_dataset(
+    client: Client, id: str, body: AppendToDatasetBody
+) -> QCrBoxResponseDatasetsResponse | QCrBoxErrorResponse | None:
+    from qcrboxapiclient.api.datasets import append_to_dataset
+
+    return append_to_dataset.sync(id=id, body=body, client=client)

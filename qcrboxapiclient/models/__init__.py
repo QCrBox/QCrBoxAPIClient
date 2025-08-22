@@ -1,9 +1,13 @@
 """Contains all the data models used in inputs/outputs"""
 
+from .append_to_dataset_body import AppendToDatasetBody
 from .application_spec_with_commands_response import ApplicationSpecWithCommandsResponse
 from .applications_response import ApplicationsResponse
 from .calculation_response import CalculationResponse
 from .calculation_response_command_arguments import CalculationResponseCommandArguments
+from .calculation_status_details import CalculationStatusDetails
+from .calculation_status_details_extra_info import CalculationStatusDetailsExtraInfo
+from .calculation_status_details_status import CalculationStatusDetailsStatus
 from .calculation_stopped_response import CalculationStoppedResponse
 from .calculations_response import CalculationsResponse
 from .close_interactive_session_response import CloseInteractiveSessionResponse
@@ -11,13 +15,14 @@ from .command_spec_with_parameters_response import CommandSpecWithParametersResp
 from .command_spec_with_parameters_response_implemented_as import CommandSpecWithParametersResponseImplementedAs
 from .command_spec_with_parameters_response_parameters import CommandSpecWithParametersResponseParameters
 from .commands_response import CommandsResponse
+from .create_data_file_body import CreateDataFileBody
 from .create_dataset_body import CreateDatasetBody
 from .create_interactive_session_parameters import CreateInteractiveSessionParameters
 from .create_interactive_session_parameters_command_arguments import CreateInteractiveSessionParametersCommandArguments
-from .data_file_info_response import DataFileInfoResponse
+from .data_file_response import DataFileResponse
 from .data_files_response import DataFilesResponse
-from .dataset_info_response import DatasetInfoResponse
-from .dataset_info_response_data_files import DatasetInfoResponseDataFiles
+from .dataset_response import DatasetResponse
+from .dataset_response_data_files import DatasetResponseDataFiles
 from .datasets_response import DatasetsResponse
 from .error_response import ErrorResponse
 from .interactive_session_closed_response import InteractiveSessionClosedResponse
@@ -43,24 +48,29 @@ from .q_cr_box_response_invoke_command_response import QCrBoxResponseInvokeComma
 from .stopped_calculation_response import StoppedCalculationResponse
 
 __all__ = (
+    "AppendToDatasetBody",
     "ApplicationSpecWithCommandsResponse",
     "ApplicationsResponse",
     "CalculationResponse",
     "CalculationResponseCommandArguments",
     "CalculationsResponse",
+    "CalculationStatusDetails",
+    "CalculationStatusDetailsExtraInfo",
+    "CalculationStatusDetailsStatus",
     "CalculationStoppedResponse",
     "CloseInteractiveSessionResponse",
     "CommandSpecWithParametersResponse",
     "CommandSpecWithParametersResponseImplementedAs",
     "CommandSpecWithParametersResponseParameters",
     "CommandsResponse",
+    "CreateDataFileBody",
     "CreateDatasetBody",
     "CreateInteractiveSessionParameters",
     "CreateInteractiveSessionParametersCommandArguments",
-    "DataFileInfoResponse",
+    "DataFileResponse",
     "DataFilesResponse",
-    "DatasetInfoResponse",
-    "DatasetInfoResponseDataFiles",
+    "DatasetResponse",
+    "DatasetResponseDataFiles",
     "DatasetsResponse",
     "ErrorResponse",
     "InteractiveSessionClosedResponse",

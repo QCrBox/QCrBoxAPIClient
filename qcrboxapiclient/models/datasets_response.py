@@ -5,7 +5,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.dataset_info_response import DatasetInfoResponse
+    from ..models.dataset_response import DatasetResponse
 
 
 T = TypeVar("T", bound="DatasetsResponse")
@@ -15,10 +15,10 @@ T = TypeVar("T", bound="DatasetsResponse")
 class DatasetsResponse:
     """
     Attributes:
-        datasets (list['DatasetInfoResponse']):
+        datasets (list['DatasetResponse']):
     """
 
-    datasets: list["DatasetInfoResponse"]
+    datasets: list["DatasetResponse"]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,13 +39,13 @@ class DatasetsResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.dataset_info_response import DatasetInfoResponse
+        from ..models.dataset_response import DatasetResponse
 
         d = dict(src_dict)
         datasets = []
         _datasets = d.pop("datasets")
         for datasets_item_data in _datasets:
-            datasets_item = DatasetInfoResponse.from_dict(datasets_item_data)
+            datasets_item = DatasetResponse.from_dict(datasets_item_data)
 
             datasets.append(datasets_item)
 

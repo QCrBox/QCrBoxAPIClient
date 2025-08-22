@@ -1,4 +1,5 @@
 from qcrboxapiclient.client import Client
+from qcrboxapiclient.models.create_data_file_body import CreateDataFileBody
 from qcrboxapiclient.models.q_cr_box_error_response import QCrBoxErrorResponse
 from qcrboxapiclient.models.q_cr_box_response_data_files_response import QCrBoxResponseDataFilesResponse
 
@@ -19,3 +20,17 @@ def download_data_file_by_id(client: Client, id: str) -> bytes | str | QCrBoxErr
     from qcrboxapiclient.api.data_files import download_data_file_by_id
 
     return download_data_file_by_id.sync(id=id, client=client)
+
+
+def create_data_file(
+    client: Client, body: CreateDataFileBody
+) -> QCrBoxResponseDataFilesResponse | QCrBoxErrorResponse | None:
+    from qcrboxapiclient.api.data_files import create_data_file
+
+    return create_data_file.sync(client=client, body=body)
+
+
+def delete_data_file_by_id(client: Client, id: str) -> QCrBoxErrorResponse | None:
+    from qcrboxapiclient.api.data_files import delete_data_file_by_id
+
+    return delete_data_file_by_id.sync(id=id, client=client)

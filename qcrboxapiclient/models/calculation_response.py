@@ -8,6 +8,7 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.calculation_response_command_arguments import CalculationResponseCommandArguments
+    from ..models.calculation_status_details import CalculationStatusDetails
 
 
 T = TypeVar("T", bound="CalculationResponse")
@@ -24,6 +25,7 @@ class CalculationResponse:
         command_name (str):
         command_arguments (CalculationResponseCommandArguments):
         status (str):
+        status_events (list['CalculationStatusDetails']):
         output_dataset_id (Union[None, Unset, str]):
     """
 
@@ -34,6 +36,7 @@ class CalculationResponse:
     command_name: str
     command_arguments: "CalculationResponseCommandArguments"
     status: str
+    status_events: list["CalculationStatusDetails"]
     output_dataset_id: Union[None, Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -52,6 +55,11 @@ class CalculationResponse:
 
         status = self.status
 
+        status_events = []
+        for status_events_item_data in self.status_events:
+            status_events_item = status_events_item_data.to_dict()
+            status_events.append(status_events_item)
+
         output_dataset_id: Union[None, Unset, str]
         if isinstance(self.output_dataset_id, Unset):
             output_dataset_id = UNSET
@@ -69,6 +77,7 @@ class CalculationResponse:
                 "command_name": command_name,
                 "command_arguments": command_arguments,
                 "status": status,
+                "status_events": status_events,
             }
         )
         if output_dataset_id is not UNSET:
@@ -79,6 +88,7 @@ class CalculationResponse:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.calculation_response_command_arguments import CalculationResponseCommandArguments
+        from ..models.calculation_status_details import CalculationStatusDetails
 
         d = dict(src_dict)
         calculation_id = d.pop("calculation_id")
@@ -94,6 +104,13 @@ class CalculationResponse:
         command_arguments = CalculationResponseCommandArguments.from_dict(d.pop("command_arguments"))
 
         status = d.pop("status")
+
+        status_events = []
+        _status_events = d.pop("status_events")
+        for status_events_item_data in _status_events:
+            status_events_item = CalculationStatusDetails.from_dict(status_events_item_data)
+
+            status_events.append(status_events_item)
 
         def _parse_output_dataset_id(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -112,6 +129,7 @@ class CalculationResponse:
             command_name=command_name,
             command_arguments=command_arguments,
             status=status,
+            status_events=status_events,
             output_dataset_id=output_dataset_id,
         )
 

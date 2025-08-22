@@ -1,24 +1,28 @@
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="DataFileInfoResponse")
+from ..types import UNSET, Unset
+
+T = TypeVar("T", bound="DataFileResponse")
 
 
 @_attrs_define
-class DataFileInfoResponse:
+class DataFileResponse:
     """
     Attributes:
         qcrbox_file_id (str):
         filename (str):
         filetype (str):
+        qcrbox_dataset_id (Union[None, Unset, str]):
     """
 
     qcrbox_file_id: str
     filename: str
     filetype: str
+    qcrbox_dataset_id: Union[None, Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -27,6 +31,12 @@ class DataFileInfoResponse:
         filename = self.filename
 
         filetype = self.filetype
+
+        qcrbox_dataset_id: Union[None, Unset, str]
+        if isinstance(self.qcrbox_dataset_id, Unset):
+            qcrbox_dataset_id = UNSET
+        else:
+            qcrbox_dataset_id = self.qcrbox_dataset_id
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -37,6 +47,8 @@ class DataFileInfoResponse:
                 "filetype": filetype,
             }
         )
+        if qcrbox_dataset_id is not UNSET:
+            field_dict["qcrbox_dataset_id"] = qcrbox_dataset_id
 
         return field_dict
 
@@ -49,14 +61,24 @@ class DataFileInfoResponse:
 
         filetype = d.pop("filetype")
 
-        data_file_info_response = cls(
+        def _parse_qcrbox_dataset_id(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        qcrbox_dataset_id = _parse_qcrbox_dataset_id(d.pop("qcrbox_dataset_id", UNSET))
+
+        data_file_response = cls(
             qcrbox_file_id=qcrbox_file_id,
             filename=filename,
             filetype=filetype,
+            qcrbox_dataset_id=qcrbox_dataset_id,
         )
 
-        data_file_info_response.additional_properties = d
-        return data_file_info_response
+        data_file_response.additional_properties = d
+        return data_file_response
 
     @property
     def additional_keys(self) -> list[str]:

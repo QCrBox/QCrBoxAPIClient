@@ -5,7 +5,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.data_file_info_response import DataFileInfoResponse
+    from ..models.data_file_response import DataFileResponse
 
 
 T = TypeVar("T", bound="DataFilesResponse")
@@ -15,10 +15,10 @@ T = TypeVar("T", bound="DataFilesResponse")
 class DataFilesResponse:
     """
     Attributes:
-        data_files (list['DataFileInfoResponse']):
+        data_files (list['DataFileResponse']):
     """
 
-    data_files: list["DataFileInfoResponse"]
+    data_files: list["DataFileResponse"]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,13 +39,13 @@ class DataFilesResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.data_file_info_response import DataFileInfoResponse
+        from ..models.data_file_response import DataFileResponse
 
         d = dict(src_dict)
         data_files = []
         _data_files = d.pop("data_files")
         for data_files_item_data in _data_files:
-            data_files_item = DataFileInfoResponse.from_dict(data_files_item_data)
+            data_files_item = DataFileResponse.from_dict(data_files_item_data)
 
             data_files.append(data_files_item)
 
