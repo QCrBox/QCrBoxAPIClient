@@ -103,7 +103,7 @@ Teardown suite
     Log    Test suite completed
 
 Upload Test Dataset
-    ${body}=    Create File Upload Body    ${TEST_FILE_PATH}
+    ${body}=    Construct Create Dataset Body    ${TEST_FILE_PATH}
     ${response}=    Create Dataset    ${API_CLIENT}    ${body}
     ${dataset}=    Set Variable    ${response.payload.datasets[0]}
     ${data_file}=    Set Variable    ${dataset.data_files['${TEST_FILE_NAME}']}

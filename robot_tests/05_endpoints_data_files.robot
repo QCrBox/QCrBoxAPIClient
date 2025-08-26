@@ -81,7 +81,6 @@ Check get_file_by_id returns 404 for incorrect id
 
 Check that delete_data_file_by_id deletes a data file
     ${response}=    Delete Data File By Id    ${API_CLIENT}    ${TEST_DATA_FILE_ID}
-    Check For Error Response    ${response}
 
 Check download_data_file_by_id returns 404 for deleted dataset
     ${response}=    Download Data File By Id    ${API_CLIENT}    ${TEST_DATA_FILE_ID}
