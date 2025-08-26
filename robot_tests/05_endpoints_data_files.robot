@@ -25,6 +25,20 @@ ${TEST_DATA_FILE_ID}    ${EMPTY}
 
 
 *** Test Cases ***
+Check create_data_file uploads a file
+    ${body}=    Construct Create Data File Body    ${TEST_FILE_PATH}
+    ${response}=    Create Data File    ${API_CLIENT}    ${body}
+    Check Response Structure    ${response}
+
+    Check Response Has Attributes    ${response.payload}    data_files
+    ${data_files}=    Set Variable    ${response.payload.data_files}
+    Length Should Be
+    ...    ${data_files}
+    ...    1
+    ...    "create_data_file API call return an incorrect number of data files when it should return only the created data file"
+    ${test_data_file_id}=    Set Variable    ${response.payload.data_files[0].qcrbox_file_id}
+    Set Suite Variable    ${TEST_DATA_FILE_ID}    ${test_data_file_id}
+
 Check list_data_files returns list of data_files
     ${response}=    List Data Files    ${API_CLIENT}
     Check For Error Response    ${response}
@@ -65,8 +79,11 @@ Check get_file_by_id returns 404 for incorrect id
     Check Response Has Attributes    ${error_payload}    code    message    details
     Should Be Equal    ${{int(404)}}    ${error_payload.code}
 
+Check that delete_data_file_by_id deletes a data file
+    ${response}=    Delete Data File By Id    ${API_CLIENT}    ${TEST_DATA_FILE_ID}
+    Check For Error Response    ${response}
+
 Check download_data_file_by_id returns 404 for deleted dataset
-    Delete Test Dataset
     ${response}=    Download Data File By Id    ${API_CLIENT}    ${TEST_DATA_FILE_ID}
     Check Response Has Attributes    ${response}    status    error
 
@@ -82,23 +99,9 @@ Setup suite
     ${client}=    Create API Client    ${API_BASE_URL}
     Set Suite Variable    ${API_CLIENT}    ${client}
 
-    ${file_upload}=    Upload Test Dataset
-    Set Suite Variable    ${TEST_DATASET_ID}    ${file_upload[0]}
-    Set Suite Variable    ${TEST_DATA_FILE_ID}    ${file_upload[1]}
-
 Teardown suite
     Log datetime information
     Log    Test suite completed
-
-Upload Test Dataset
-    ${body}=    Create File Upload Body    ${TEST_FILE_PATH}
-    ${response}=    Create Dataset    ${API_CLIENT}    ${body}
-    ${dataset}=    Set Variable    ${response.payload.datasets[0]}
-    ${data_file}=    Set Variable    ${dataset.data_files['${TEST_FILE_NAME}']}
-    RETURN    ${dataset.qcrbox_dataset_id}    ${data_file.qcrbox_file_id}
-
-Delete Test Dataset
-    Delete Dataset By Id    ${API_CLIENT}    ${TEST_DATASET_ID}
 
 Check Data Files Structure
     [Arguments]    @{data_files}

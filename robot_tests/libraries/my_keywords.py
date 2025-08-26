@@ -1,8 +1,11 @@
 import io
 import pathlib
+import zipfile
 
 from robot.api.deco import keyword
 
+from qcrboxapiclient.models.append_to_dataset_body import AppendToDatasetBody
+from qcrboxapiclient.models.create_data_file_body import CreateDataFileBody
 from qcrboxapiclient.models.create_dataset_body import CreateDatasetBody
 from qcrboxapiclient.models.create_interactive_session_parameters import CreateInteractiveSessionParameters
 from qcrboxapiclient.models.create_interactive_session_parameters_command_arguments import (
@@ -33,7 +36,7 @@ def check_object_has_attributes(object, *attributes):
 
 
 @keyword
-def create_file_upload_body(file_path):
+def construct_create_dataset_body(file_path):
     file_path = pathlib.Path(file_path)
 
     if not file_path.exists():
@@ -43,6 +46,31 @@ def create_file_upload_body(file_path):
         file = File(io.BytesIO(file_in.read()), file_path.name)
 
     return CreateDatasetBody(file)
+
+@keyword
+def construct_create_data_file_body(file_path):
+    file_path = pathlib.Path(file_path)
+
+    if not file_path.exists():
+        raise AssertionError(f"No file exists at {file_path}")
+
+    with file_path.open("rb") as file_in:
+        file = File(io.BytesIO(file_in.read()), file_path.name)
+
+    return CreateDataFileBody(file)
+
+
+@keyword
+def construct_append_to_dataset_body(file_path):
+    file_path = pathlib.Path(file_path)
+
+    if not file_path.exists():
+        raise AssertionError(f"No file exists at {file_path}")
+
+    with file_path.open("rb") as file_in:
+        file = File(io.BytesIO(file_in.read()), file_path.name)
+
+    return AppendToDatasetBody(file)
 
 
 @keyword
@@ -60,3 +88,11 @@ def create_invoke_command_body(application_slug, application_version, command_na
 @keyword
 def get_command_parameter_names(parameters):
     return parameters.to_dict().keys()
+
+
+@keyword
+def validate_is_zip(file_path):
+    zf = zipfile.ZipFile(file_path)
+    bad_file = zf.testzip()
+    assert bad_file is None
+    zf.close()
