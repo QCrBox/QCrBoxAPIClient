@@ -32,7 +32,7 @@ Check create_datasets can upload a data file
     ${response}=    Create Dataset    ${API_CLIENT}    ${body}
     Check Response Structure    ${response}
 
-    Check Response Has Attributes    ${response.payload}    datasets
+    Check Response Has Attributes    ${response.payload}    datasets    data_files
     ${datasets}=    Set Variable    ${response.payload.datasets}
     Length Should Be
     ...    ${datasets}
@@ -46,7 +46,7 @@ Check append_to_dataset can add a file to a dataset
     ${response}=    Append To Dataset    ${API_CLIENT}    ${TEST_DATASET_ID}    ${BODY}
     Check Response Structure    ${response}
 
-    Check Response Has Attributes    ${response.payload}    datasets
+    Check Response Has Attributes    ${response.payload}    datasets    data_files    appended_file
     Length Should Be
     ...    ${response.payload.datasets}
     ...    1
@@ -74,7 +74,7 @@ Check get_dataset_by_id returns the correct dataset
     ${response}=    Get Dataset By Id    ${API_CLIENT}    ${TEST_DATASET_ID}
     Check Response Structure    ${response}
 
-    Check Response Has Attributes    ${response.payload}    datasets
+    Check Response Has Attributes    ${response.payload}    datasets    data_files
     ${datasets}=    Set Variable    ${response.payload.datasets}
     Length Should Be
     ...    ${datasets}

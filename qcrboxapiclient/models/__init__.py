@@ -21,9 +21,11 @@ from .create_interactive_session_parameters import CreateInteractiveSessionParam
 from .create_interactive_session_parameters_command_arguments import CreateInteractiveSessionParametersCommandArguments
 from .data_file_response import DataFileResponse
 from .data_files_response import DataFilesResponse
+from .dataset_append_response import DatasetAppendResponse
 from .dataset_response import DatasetResponse
 from .dataset_response_data_files import DatasetResponseDataFiles
 from .datasets_response import DatasetsResponse
+from .datasets_with_data_files_response import DatasetsWithDataFilesResponse
 from .error_response import ErrorResponse
 from .interactive_session_closed_response import InteractiveSessionClosedResponse
 from .interactive_session_id_response import InteractiveSessionIDResponse
@@ -40,7 +42,9 @@ from .q_cr_box_response_calculation_stopped_response import QCrBoxResponseCalcul
 from .q_cr_box_response_calculations_response import QCrBoxResponseCalculationsResponse
 from .q_cr_box_response_commands_response import QCrBoxResponseCommandsResponse
 from .q_cr_box_response_data_files_response import QCrBoxResponseDataFilesResponse
+from .q_cr_box_response_dataset_append_response import QCrBoxResponseDatasetAppendResponse
 from .q_cr_box_response_datasets_response import QCrBoxResponseDatasetsResponse
+from .q_cr_box_response_datasets_with_data_files_response import QCrBoxResponseDatasetsWithDataFilesResponse
 from .q_cr_box_response_interactive_session_closed_response import QCrBoxResponseInteractiveSessionClosedResponse
 from .q_cr_box_response_interactive_session_id_response import QCrBoxResponseInteractiveSessionIDResponse
 from .q_cr_box_response_interactive_sessions_response import QCrBoxResponseInteractiveSessionsResponse
@@ -69,9 +73,11 @@ __all__ = (
     "CreateInteractiveSessionParametersCommandArguments",
     "DataFileResponse",
     "DataFilesResponse",
+    "DatasetAppendResponse",
     "DatasetResponse",
     "DatasetResponseDataFiles",
     "DatasetsResponse",
+    "DatasetsWithDataFilesResponse",
     "ErrorResponse",
     "InteractiveSessionClosedResponse",
     "InteractiveSessionIDResponse",
@@ -88,7 +94,9 @@ __all__ = (
     "QCrBoxResponseCalculationStoppedResponse",
     "QCrBoxResponseCommandsResponse",
     "QCrBoxResponseDataFilesResponse",
+    "QCrBoxResponseDatasetAppendResponse",
     "QCrBoxResponseDatasetsResponse",
+    "QCrBoxResponseDatasetsWithDataFilesResponse",
     "QCrBoxResponseInteractiveSessionClosedResponse",
     "QCrBoxResponseInteractiveSessionIDResponse",
     "QCrBoxResponseInteractiveSessionsResponse",

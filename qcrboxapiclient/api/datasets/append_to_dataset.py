@@ -7,7 +7,7 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.append_to_dataset_body import AppendToDatasetBody
 from ...models.q_cr_box_error_response import QCrBoxErrorResponse
-from ...models.q_cr_box_response_datasets_response import QCrBoxResponseDatasetsResponse
+from ...models.q_cr_box_response_dataset_append_response import QCrBoxResponseDatasetAppendResponse
 from ...types import Response
 
 
@@ -33,9 +33,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetAppendResponse]]:
     if response.status_code == 201:
-        response_201 = QCrBoxResponseDatasetsResponse.from_dict(response.json())
+        response_201 = QCrBoxResponseDatasetAppendResponse.from_dict(response.json())
 
         return response_201
     if response.status_code == 400:
@@ -54,7 +54,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetAppendResponse]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -68,7 +68,7 @@ def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
     body: AppendToDatasetBody,
-) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetAppendResponse]]:
     """Add a file to a dataset
 
      Append a new data file to a dataset.
@@ -82,7 +82,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]
+        Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetAppendResponse]]
     """
 
     kwargs = _get_kwargs(
@@ -102,7 +102,7 @@ def sync(
     *,
     client: Union[AuthenticatedClient, Client],
     body: AppendToDatasetBody,
-) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetAppendResponse]]:
     """Add a file to a dataset
 
      Append a new data file to a dataset.
@@ -116,7 +116,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]
+        Union[QCrBoxErrorResponse, QCrBoxResponseDatasetAppendResponse]
     """
 
     return sync_detailed(
@@ -131,7 +131,7 @@ async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
     body: AppendToDatasetBody,
-) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetAppendResponse]]:
     """Add a file to a dataset
 
      Append a new data file to a dataset.
@@ -145,7 +145,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]
+        Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetAppendResponse]]
     """
 
     kwargs = _get_kwargs(
@@ -163,7 +163,7 @@ async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
     body: AppendToDatasetBody,
-) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetAppendResponse]]:
     """Add a file to a dataset
 
      Append a new data file to a dataset.
@@ -177,7 +177,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]
+        Union[QCrBoxErrorResponse, QCrBoxResponseDatasetAppendResponse]
     """
 
     return (

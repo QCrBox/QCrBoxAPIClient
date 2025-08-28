@@ -7,7 +7,7 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.create_dataset_body import CreateDatasetBody
 from ...models.q_cr_box_error_response import QCrBoxErrorResponse
-from ...models.q_cr_box_response_datasets_response import QCrBoxResponseDatasetsResponse
+from ...models.q_cr_box_response_datasets_with_data_files_response import QCrBoxResponseDatasetsWithDataFilesResponse
 from ...types import Response
 
 
@@ -32,9 +32,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsWithDataFilesResponse]]:
     if response.status_code == 201:
-        response_201 = QCrBoxResponseDatasetsResponse.from_dict(response.json())
+        response_201 = QCrBoxResponseDatasetsWithDataFilesResponse.from_dict(response.json())
 
         return response_201
     if response.status_code == 400:
@@ -53,7 +53,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsWithDataFilesResponse]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -66,7 +66,7 @@ def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
     body: CreateDatasetBody,
-) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsWithDataFilesResponse]]:
     """Create a new dataset
 
      Create a new dataset by uploading data files.
@@ -79,7 +79,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]
+        Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsWithDataFilesResponse]]
     """
 
     kwargs = _get_kwargs(
@@ -97,7 +97,7 @@ def sync(
     *,
     client: Union[AuthenticatedClient, Client],
     body: CreateDatasetBody,
-) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsWithDataFilesResponse]]:
     """Create a new dataset
 
      Create a new dataset by uploading data files.
@@ -110,7 +110,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]
+        Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsWithDataFilesResponse]
     """
 
     return sync_detailed(
@@ -123,7 +123,7 @@ async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
     body: CreateDatasetBody,
-) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
+) -> Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsWithDataFilesResponse]]:
     """Create a new dataset
 
      Create a new dataset by uploading data files.
@@ -136,7 +136,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]
+        Response[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsWithDataFilesResponse]]
     """
 
     kwargs = _get_kwargs(
@@ -152,7 +152,7 @@ async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
     body: CreateDatasetBody,
-) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]]:
+) -> Optional[Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsWithDataFilesResponse]]:
     """Create a new dataset
 
      Create a new dataset by uploading data files.
@@ -165,7 +165,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsResponse]
+        Union[QCrBoxErrorResponse, QCrBoxResponseDatasetsWithDataFilesResponse]
     """
 
     return (
