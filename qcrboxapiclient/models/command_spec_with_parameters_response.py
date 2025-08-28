@@ -19,6 +19,7 @@ class CommandSpecWithParametersResponse:
     """
     Attributes:
         name (str):
+        description (str):
         implemented_as (CommandSpecWithParametersResponseImplementedAs):
         parameters (CommandSpecWithParametersResponseParameters):
         id (int):
@@ -26,12 +27,12 @@ class CommandSpecWithParametersResponse:
         application (str):
         version (str):
         cmd_name (str):
-        description (Union[Unset, str]):  Default: ''.
         merge_cif_su (Union[Unset, bool]):  Default: False.
         doi (Union[None, Unset, str]):
     """
 
     name: str
+    description: str
     implemented_as: CommandSpecWithParametersResponseImplementedAs
     parameters: "CommandSpecWithParametersResponseParameters"
     id: int
@@ -39,13 +40,14 @@ class CommandSpecWithParametersResponse:
     application: str
     version: str
     cmd_name: str
-    description: Union[Unset, str] = ""
     merge_cif_su: Union[Unset, bool] = False
     doi: Union[None, Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         name = self.name
+
+        description = self.description
 
         implemented_as = self.implemented_as.value
 
@@ -61,8 +63,6 @@ class CommandSpecWithParametersResponse:
 
         cmd_name = self.cmd_name
 
-        description = self.description
-
         merge_cif_su = self.merge_cif_su
 
         doi: Union[None, Unset, str]
@@ -76,6 +76,7 @@ class CommandSpecWithParametersResponse:
         field_dict.update(
             {
                 "name": name,
+                "description": description,
                 "implemented_as": implemented_as,
                 "parameters": parameters,
                 "id": id,
@@ -85,8 +86,6 @@ class CommandSpecWithParametersResponse:
                 "cmd_name": cmd_name,
             }
         )
-        if description is not UNSET:
-            field_dict["description"] = description
         if merge_cif_su is not UNSET:
             field_dict["merge_cif_su"] = merge_cif_su
         if doi is not UNSET:
@@ -103,6 +102,8 @@ class CommandSpecWithParametersResponse:
         d = dict(src_dict)
         name = d.pop("name")
 
+        description = d.pop("description")
+
         implemented_as = CommandSpecWithParametersResponseImplementedAs(d.pop("implemented_as"))
 
         parameters = CommandSpecWithParametersResponseParameters.from_dict(d.pop("parameters"))
@@ -117,8 +118,6 @@ class CommandSpecWithParametersResponse:
 
         cmd_name = d.pop("cmd_name")
 
-        description = d.pop("description", UNSET)
-
         merge_cif_su = d.pop("merge_cif_su", UNSET)
 
         def _parse_doi(data: object) -> Union[None, Unset, str]:
@@ -132,6 +131,7 @@ class CommandSpecWithParametersResponse:
 
         command_spec_with_parameters_response = cls(
             name=name,
+            description=description,
             implemented_as=implemented_as,
             parameters=parameters,
             id=id,
@@ -139,7 +139,6 @@ class CommandSpecWithParametersResponse:
             application=application,
             version=version,
             cmd_name=cmd_name,
-            description=description,
             merge_cif_su=merge_cif_su,
             doi=doi,
         )

@@ -25,6 +25,7 @@ class ApplicationSpecWithCommandsResponse:
         id (int):
         registered_at (datetime.datetime):
         commands (list['CommandSpecWithParametersResponse']):
+        pyqcrbox_version (Union[Unset, str]):  Default: '2026.dev169+gf7e0fd849.d19800101'.
         description (Union[None, Unset, str]):
         url (Union[None, Unset, str]):
         email (Union[None, Unset, str]):
@@ -39,6 +40,7 @@ class ApplicationSpecWithCommandsResponse:
     id: int
     registered_at: datetime.datetime
     commands: list["CommandSpecWithParametersResponse"]
+    pyqcrbox_version: Union[Unset, str] = "2026.dev169+gf7e0fd849.d19800101"
     description: Union[None, Unset, str] = UNSET
     url: Union[None, Unset, str] = UNSET
     email: Union[None, Unset, str] = UNSET
@@ -62,6 +64,8 @@ class ApplicationSpecWithCommandsResponse:
         for commands_item_data in self.commands:
             commands_item = commands_item_data.to_dict()
             commands.append(commands_item)
+
+        pyqcrbox_version = self.pyqcrbox_version
 
         description: Union[None, Unset, str]
         if isinstance(self.description, Unset):
@@ -111,6 +115,8 @@ class ApplicationSpecWithCommandsResponse:
                 "commands": commands,
             }
         )
+        if pyqcrbox_version is not UNSET:
+            field_dict["pyqcrbox_version"] = pyqcrbox_version
         if description is not UNSET:
             field_dict["description"] = description
         if url is not UNSET:
@@ -147,6 +153,8 @@ class ApplicationSpecWithCommandsResponse:
             commands_item = CommandSpecWithParametersResponse.from_dict(commands_item_data)
 
             commands.append(commands_item)
+
+        pyqcrbox_version = d.pop("pyqcrbox_version", UNSET)
 
         def _parse_description(data: object) -> Union[None, Unset, str]:
             if data is None:
@@ -209,6 +217,7 @@ class ApplicationSpecWithCommandsResponse:
             id=id,
             registered_at=registered_at,
             commands=commands,
+            pyqcrbox_version=pyqcrbox_version,
             description=description,
             url=url,
             email=email,

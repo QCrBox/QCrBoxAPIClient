@@ -36,6 +36,7 @@ def download_dataset_by_id(client: Client, id: str) -> bytes | str | QCrBoxError
 
     return download_dataset_by_id.sync(id=id, client=client)
 
+
 def append_to_dataset(
     client: Client, id: str, body: AppendToDatasetBody
 ) -> QCrBoxResponseDatasetsResponse | QCrBoxErrorResponse | None:
