@@ -5,6 +5,7 @@ Model Reference
    :maxdepth: 2
 
    q_cr_box_response_invoke_command_response
+   q_cr_box_response_datasets_with_data_files_response
    calculation_status_details_status
    create_interactive_session_parameters_command_arguments
    q_cr_box_response_applications_response
@@ -18,6 +19,7 @@ Model Reference
    applications_response
    q_cr_box_response_calculations_response
    dataset_response
+   q_cr_box_response_dataset_append_response
    interactive_sessions_response
    data_files_response
    interactive_session_closed_response
@@ -25,6 +27,7 @@ Model Reference
    calculation_stopped_response
    q_cr_box_health_response
    create_data_file_body
+   dataset_append_response
    q_cr_box_response_data_files_response
    calculation_response
    datasets_response
@@ -48,5 +51,6 @@ Model Reference
    calculation_response_command_arguments
    q_cr_box_response_interactive_sessions_response
    command_spec_with_parameters_response_parameters
+   datasets_with_data_files_response
    q_cr_box_response_calculation_stopped_response
    calculation_status_details_extra_info
