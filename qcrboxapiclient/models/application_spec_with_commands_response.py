@@ -25,7 +25,7 @@ class ApplicationSpecWithCommandsResponse:
         id (int):
         registered_at (datetime.datetime):
         commands (list['CommandSpecWithParametersResponse']):
-        pyqcrbox_version (Union[Unset, str]):  Default: '2026.dev173+g9330da815.d19800101'.
+        pyqcrbox_version (Union[Unset, str]):  Default: '0.1.0'.
         description (Union[None, Unset, str]):
         url (Union[None, Unset, str]):
         email (Union[None, Unset, str]):
@@ -40,7 +40,7 @@ class ApplicationSpecWithCommandsResponse:
     id: int
     registered_at: datetime.datetime
     commands: list["CommandSpecWithParametersResponse"]
-    pyqcrbox_version: Union[Unset, str] = "2026.dev173+g9330da815.d19800101"
+    pyqcrbox_version: Union[Unset, str] = "0.1.0"
     description: Union[None, Unset, str] = UNSET
     url: Union[None, Unset, str] = UNSET
     email: Union[None, Unset, str] = UNSET
